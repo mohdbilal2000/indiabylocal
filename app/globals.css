@@ -39,25 +39,9 @@
   --ease-enter: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-brand: #a9b0ff;
-    --color-ink: #ece9f2;
-    --color-muted: #a9a5b5;
-    --color-surface: #14131a;
-    --color-surface-alt: #1a1922;
-    --color-card: #1e1d27;
-    --color-line: #7d7889;
-    --color-hair: #302e3b;
-    --color-success: #6fcf97;
-    --color-warning: #e8b455;
-    --color-error: #ff8a80;
-  }
-}
-
 @layer base {
   html {
-    color-scheme: light dark;
+    color-scheme: light;
     -webkit-text-size-adjust: 100%;
   }
   body {
@@ -122,6 +106,43 @@
   .btn:active {
     transform: translateY(1px);
   }
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 20px;
+    border: 1px solid var(--color-line);
+    border-radius: 8px;
+    font-weight: 600;
+    background: var(--color-card);
+  }
+  .btn-ghost:hover {
+    border-color: var(--color-brand);
+  }
+  .field {
+    display: block;
+    width: 100%;
+    min-height: 48px;
+    padding: 10px 12px;
+    border: 1px solid var(--color-line);
+    border-radius: 8px;
+    background: var(--color-card);
+    font-size: 1rem;
+  }
+  .zoom {
+    overflow: hidden;
+  }
+  .zoom img {
+    transition: transform 400ms var(--ease-enter);
+  }
+  .zoom:hover img,
+  .group:hover .zoom img {
+    transform: scale(1.04);
+  }
+  .scrim {
+    background: linear-gradient(to top, rgb(12 10 20 / 0.82) 0%, rgb(12 10 20 / 0.35) 45%, rgb(12 10 20 / 0) 75%);
+  }
   .link {
     color: var(--color-brand);
     text-decoration: underline;
@@ -134,23 +155,9 @@
   }
 }
 
-/* The one signature moment: the sun comes up behind the Taj on the homepage. */
-@keyframes sun-rise {
-  from {
-    transform: translateY(70px);
-    opacity: 0.2;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-.sun-rise {
-  animation: sun-rise 1400ms var(--ease-enter) 150ms both;
-}
 @media (prefers-reduced-motion: reduce) {
-  .sun-rise {
-    animation: none;
+  .zoom img {
+    transition: none;
   }
   .btn {
     transition: none;

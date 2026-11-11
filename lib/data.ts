@@ -5,17 +5,6 @@
  * with supplier data before setting SITE_LIVE=1.
  */
 
-export type CitySlug = "agra" | "delhi" | "jaipur";
-export type ArtKind = "taj" | "fort" | "palace" | "lanes" | "arch";
-
-export type City = {
-  slug: CitySlug;
-  name: string;
-  intro: string;
-  art: ArtKind;
-  facts: { text: string; href?: string }[];
-};
-
 /** Per-person price in whole US dollars for a group of 1, 2, 3–4 and 5+. */
 export type Tiers = [number, number, number, number];
 
@@ -31,10 +20,12 @@ export type Stop = { time: string; title: string; text: string };
 
 export type Tour = {
   slug: string;
-  city: CitySlug;
+  /** Destination slug from lib/destinations. */
+  city: string;
   title: string;
   summary: string;
-  art: ArtKind;
+  /** Photo keys from lib/photos.json; the first is the lead image. */
+  photos: string[];
   durationHours: number;
   /** Local start time in India, 24-hour HH:MM. */
   startTime: string;
@@ -63,50 +54,6 @@ export function tierIndex(people: number): 0 | 1 | 2 | 3 {
   return 3;
 }
 
-export const cities: City[] = [
-  {
-    slug: "agra",
-    name: "Agra",
-    intro:
-      "The Taj Mahal, Agra Fort and the old city behind them, with a guide who is licensed to work inside the monuments.",
-    art: "taj",
-    facts: [
-      {
-        text: "The Taj Mahal is closed to visitors every Friday.",
-        href: "/india/agra/taj-mahal/tickets-timings",
-      },
-      {
-        text: "Foreign visitors pay a separate, higher ticket price at the Taj Mahal and Agra Fort.",
-        href: "/india/agra/taj-mahal/tickets-timings",
-      },
-      { text: "Sunrise entry means a hotel pickup before 05:30 for most of the season." },
-    ],
-  },
-  {
-    slug: "delhi",
-    name: "Delhi",
-    intro:
-      "Old Delhi on foot, New Delhi by car, and the food in between. Guides who live in the neighbourhoods they show.",
-    art: "arch",
-    facts: [
-      { text: "Most Old Delhi markets are shut on Sundays; food walks run on the other six days." },
-      { text: "Traffic decides the day. A private car tour covers four or five sites, not ten." },
-      { text: "Agra is a same-day trip from Delhi by car or by the morning express train." },
-    ],
-  },
-  {
-    slug: "jaipur",
-    name: "Jaipur",
-    intro: "Amber Fort in the morning before the coaches, then the walled Pink City with someone who grew up in it.",
-    art: "palace",
-    facts: [
-      { text: "Amber Fort is 11 km outside the walled city; allow half a day for it." },
-      { text: "The old city's bazaars are busiest after 17:00, when the heat drops." },
-      { text: "We do not sell elephant rides." },
-    ],
-  },
-];
-
 export const tours: Tour[] = [
   {
     slug: "taj-mahal-sunrise-private-tour-a1",
@@ -114,7 +61,7 @@ export const tours: Tour[] = [
     title: "Taj Mahal at sunrise with a licensed guide",
     summary:
       "Be at the East Gate when it opens. Your guide handles the queue, the security check and the two hours inside, then walks you out before the day-trip coaches arrive.",
-    art: "taj",
+    photos: ["agra"],
     durationHours: 3,
     startTime: "05:30",
     pickup: "Hotel pickup in Agra",
@@ -161,7 +108,7 @@ export const tours: Tour[] = [
     title: "Taj Mahal and Agra Fort from Delhi, private car",
     summary:
       "One car, one driver and one Agra guide for the whole day. Leave Delhi at 06:00, be inside the Taj by mid-morning and back in Delhi for dinner.",
-    art: "fort",
+    photos: ["x-agra-fort", "agra", "x-fatehpur"],
     durationHours: 13,
     startTime: "06:00",
     pickup: "Hotel pickup in Delhi, Gurugram or Noida",
@@ -218,7 +165,7 @@ export const tours: Tour[] = [
     title: "Agra old city food walk",
     summary:
       "The lanes behind the Jama Masjid in the early evening: eight tastings at stalls your guide eats at, and the city most day-trippers never see.",
-    art: "lanes",
+    photos: ["x-petha", "x-chaat"],
     durationHours: 3,
     startTime: "17:00",
     pickup: "Meet in the old city",
@@ -255,7 +202,7 @@ export const tours: Tour[] = [
     title: "Old Delhi food and back-lanes walk",
     summary:
       "Chandni Chowk with someone who knows which door to push. Four hours, ten tastings, one cycle-rickshaw ride and a rooftop over the spice market.",
-    art: "lanes",
+    photos: ["x-chandni-chowk", "x-khari-baoli", "x-jama-masjid"],
     durationHours: 4,
     startTime: "09:30",
     pickup: "Meet at the metro",
@@ -293,7 +240,7 @@ export const tours: Tour[] = [
     title: "Delhi in a day by private car",
     summary:
       "Old and New Delhi in eight hours, in an order that follows the traffic. Five sites properly rather than ten through a window.",
-    art: "arch",
+    photos: ["x-qutub", "x-india-gate", "x-jama-masjid"],
     durationHours: 8,
     startTime: "09:00",
     pickup: "Hotel pickup in Delhi",
@@ -344,7 +291,7 @@ export const tours: Tour[] = [
     title: "Amber Fort and the Pink City, private tour",
     summary:
       "Up to Amber Fort before the coaches, then down into the walled city: the palace of winds from the street, the observatory, and the bazaars on foot.",
-    art: "palace",
+    photos: ["x-amber-fort", "jaipur", "x-jantar-mantar"],
     durationHours: 6,
     startTime: "08:30",
     pickup: "Hotel pickup in Jaipur",
@@ -401,20 +348,12 @@ export function cheapestOption(tour: Tour): TourOption {
   return tour.options.find((o) => o.tiers.includes(from)) as TourOption;
 }
 
-export function toursIn(city: CitySlug): Tour[] {
+export function toursIn(city: string): Tour[] {
   return tours.filter((t) => t.city === city);
-}
-
-export function cityBySlug(slug: string): City | undefined {
-  return cities.find((c) => c.slug === slug);
 }
 
 export function tourBySlug(slug: string): Tour | undefined {
   return tours.find((t) => t.slug === slug);
-}
-
-export function cityFrom(city: CitySlug): number {
-  return Math.min(...toursIn(city).map(fromPrice));
 }
 
 export function durationLabel(hours: number): string {

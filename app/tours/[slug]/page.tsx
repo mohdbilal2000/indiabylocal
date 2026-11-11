@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Art } from "@/components/Art";
 import { BookingBox, StickyBar } from "@/components/BookingBox";
 import { Crumbs } from "@/components/Chrome";
 import { JsonLd, breadcrumbLd } from "@/components/JsonLd";
+import { Photo, hasPhoto } from "@/components/Photo";
 import { TourCard } from "@/components/TourCard";
-import { cityBySlug, durationLabel, fromPrice, tourBySlug, tours, toursIn } from "@/lib/data";
+import { durationLabel, fromPrice, tourBySlug, tours, toursIn } from "@/lib/data";
+import { destinationBySlug } from "@/lib/destinations";
 import { SITE_LIVE, SITE_NAME, SITE_URL } from "@/lib/site";
 
 export const dynamicParams = false;
@@ -30,9 +31,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function TourPage({ params }: Props) {
   const tour = tourBySlug((await params).slug);
   if (!tour) notFound();
-  const city = cityBySlug(tour.city);
+  const city = destinationBySlug(tour.city);
   if (!city) notFound();
   const from = fromPrice(tour);
+  const photos = tour.photos.filter(hasPhoto).slice(0, 3);
   const similar = toursIn(tour.city)
     .filter((t) => t.slug !== tour.slug)
     .slice(0, 3);
@@ -75,9 +77,32 @@ export default async function TourPage({ params }: Props) {
 
       <div className="mt-4 grid gap-8 lg:grid-cols-[minmax(0,1fr)_380px] lg:grid-rows-[auto_1fr] lg:gap-x-12">
         <div className="min-w-0 lg:col-start-1">
-          <Art kind={tour.art} className="aspect-[4/3] w-full rounded-2xl border border-hair md:aspect-[16/9]" />
-          <h1 className="mt-6 text-h2">{tour.title}</h1>
-          <p className="mt-2 text-small text-muted">New · Licensed guide · {city.name}</p>
+          <ul
+            aria-label="Photos"
+            className={`flex snap-x snap-mandatory gap-2 overflow-x-auto rounded-2xl md:grid md:grid-rows-2 md:overflow-hidden ${photos.length > 1 ? "md:grid-cols-[2fr_1fr]" : ""}`}
+          >
+            {photos.map((name, i) => (
+              <li
+                key={name}
+                className={`relative aspect-[4/3] ${photos.length > 1 ? "w-[88%]" : "w-full"} shrink-0 snap-center overflow-hidden rounded-xl md:w-auto md:rounded-none ${
+                  i === 0 ? "md:row-span-2 md:aspect-auto md:min-h-[26rem]" : "md:aspect-auto"
+                } ${photos.length === 2 && i === 1 ? "md:row-span-2" : ""}`}
+              >
+                <Photo name={name} sizes={i === 0 ? "(min-width: 1024px) 560px, 88vw" : "(min-width: 1024px) 280px, 88vw"} priority={i === 0} />
+              </li>
+            ))}
+          </ul>
+          <p className="mt-2 text-caption text-muted">
+            Photographs of the places on the route.{" "}
+            <a href="/credits" className="underline">
+              Credits
+            </a>
+          </p>
+          <h1 className="mt-5 text-h2">{tour.title}</h1>
+          <p className="mt-2 text-small text-muted">
+            <span className="mr-2 rounded-full bg-surface-alt px-2.5 py-1 text-caption font-semibold text-ink">Sample listing</span>
+            Licensed guide · {city.name}
+          </p>
           <p className="prose-col mt-4">{tour.summary}</p>
 
           <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-4 border-y border-hair py-5 text-small sm:grid-cols-3">

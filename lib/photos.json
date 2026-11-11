@@ -1,0 +1,626 @@
+{
+ "agra": {
+  "w": 1280,
+  "h": 842,
+  "subject": "Taj Mahal",
+  "artist": "Yann; edited by Jim Carter",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Taj_Mahal_(Edited).jpeg"
+ },
+ "ahmedabad": {
+  "w": 1280,
+  "h": 1489,
+  "subject": "Adalaj Stepwell",
+  "artist": "AnupGandhe",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Adalaj_ki_Vav_Gujarat_240A1370_72.jpg"
+ },
+ "ajanta-ellora": {
+  "w": 1280,
+  "h": 960,
+  "subject": "Ajanta Caves",
+  "artist": "No machine-readable author provided. Soman assumed (based on copyright claims).",
+  "license": "CC BY 2.5",
+  "source": "https://commons.wikimedia.org/wiki/File:Ajanta_(63).jpg"
+ },
+ "alleppey": {
+  "w": 1280,
+  "h": 1969,
+  "subject": "Kerala backwaters",
+  "artist": "Augustus Binu : flickr",
+  "license": "CC BY-SA 3.0",
+  "source": "https://commons.wikimedia.org/wiki/File:House_Boat_DSW.jpg"
+ },
+ "amritsar": {
+  "w": 1280,
+  "h": 853,
+  "subject": "Golden Temple",
+  "artist": "Shagil Kannur",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:The_Golden_Temple_of_Amrithsar_7.jpg"
+ },
+ "andaman": {
+  "w": 1280,
+  "h": 960,
+  "subject": "Radhanagar Beach",
+  "artist": "Harvinder Chandigarh",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Radha_Nagar_beach,_Havelock_Island,_Andamn,_India-_Sun_set_view.jpg"
+ },
+ "araku": {
+  "w": 620,
+  "h": 412,
+  "subject": "Araku Valley",
+  "artist": "Eswararaokenguva",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Araku-valley.jpg"
+ },
+ "bengaluru": {
+  "w": 1280,
+  "h": 604,
+  "subject": "Bengaluru Palace",
+  "artist": "Chuggingtrails",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Bangalore_Mysore_Maharaja_Palace.jpg"
+ },
+ "bhubaneswar": {
+  "w": 1280,
+  "h": 1707,
+  "subject": "Lingaraja Temple",
+  "artist": "Satyakam Parthasarathy",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Lingaraj_Temple_,_Bhubaneswar.jpg"
+ },
+ "bodh-gaya": {
+  "w": 1280,
+  "h": 1707,
+  "subject": "Mahabodhi Temple",
+  "artist": "Bpilgrim",
+  "license": "CC BY-SA 2.5",
+  "source": "https://commons.wikimedia.org/wiki/File:Mahabodhitemple.jpg"
+ },
+ "chandigarh": {
+  "w": 1280,
+  "h": 960,
+  "subject": "Rock Garden of Chandigarh",
+  "artist": "Ijon",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Chandigarh_Rock_Garden_4.jpg"
+ },
+ "chennai": {
+  "w": 800,
+  "h": 600,
+  "subject": "Kapaleeshwarar Temple",
+  "artist": "Mohan Krishnan (en:User talk:Nsmohan",
+  "license": "CC BY-SA 3.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Kapaleeswarar1.jpg"
+ },
+ "cherrapunji": {
+  "w": 1280,
+  "h": 853,
+  "subject": "Living root bridge",
+  "artist": "Arshiya Urveeja Bose",
+  "license": "CC BY 2.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Living_root_bridges,_Nongriat_village,_Meghalaya2.jpg"
+ },
+ "chitrakote": {
+  "w": 1280,
+  "h": 960,
+  "subject": "Chitrakote Falls",
+  "artist": "Iamg at English Wikipedia",
+  "license": "CC BY-SA 3.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Chitrakot_waterfalls.JPG"
+ },
+ "coorg": {
+  "w": 1280,
+  "h": 720,
+  "subject": "Abbey Falls",
+  "artist": "Santhoshkumar Sugumar",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Abbey_Falls_New.jpg"
+ },
+ "darjeeling": {
+  "w": 1280,
+  "h": 836,
+  "subject": "Darjeeling",
+  "artist": "Arne Hückelheim\n\n2010-09-21 12:41:53 This is a cropped in which the glare has be",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:DarjeelingTrainFruitshop_(2).jpg"
+ },
+ "delhi": {
+  "w": 1280,
+  "h": 588,
+  "subject": "Red Fort",
+  "artist": "PerSona77",
+  "license": "CC BY-SA 3.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Delhi_fort.jpg"
+ },
+ "dharamshala": {
+  "w": 1280,
+  "h": 853,
+  "subject": "McLeod Ganj",
+  "artist": "Rignam Wangkhang",
+  "license": "CC BY 2.0",
+  "source": "https://commons.wikimedia.org/wiki/File:McLeod_Ganj_Dharamkot_Dharmsala_Himachal_Pradesh_India_April_2014.jpg"
+ },
+ "gangtok": {
+  "w": 1280,
+  "h": 853,
+  "subject": "Rumtek Monastery",
+  "artist": "Anjan Kumar Kundu",
+  "license": "CC BY 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Rumtek_Monastery_alias_Dharma_Chakra_Centre_near_Gangtok,_East_Sikkim_09.jpg"
+ },
+ "gir": {
+  "w": 618,
+  "h": 440,
+  "subject": "Gir National Park",
+  "artist": "Mayankvagadiya",
+  "license": "CC BY-SA 3.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Gir_lion-Gir_forest,junagadh,gujarat,india.jpeg"
+ },
+ "goa": {
+  "w": 1280,
+  "h": 720,
+  "subject": "Palolem Beach",
+  "artist": "iMahesh",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Palolem_Beach,_South_Goa.jpg"
+ },
+ "gulmarg": {
+  "w": 1280,
+  "h": 853,
+  "subject": "Gulmarg",
+  "artist": "Anurag Kumar",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Ancient_Temple,_Gulmarg.jpg"
+ },
+ "guwahati": {
+  "w": 1280,
+  "h": 854,
+  "subject": "Kamakhya Temple",
+  "artist": "Devkmaravi",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Kamakhya_Temple_-_DEV_8829.jpg"
+ },
+ "gwalior": {
+  "w": 1280,
+  "h": 853,
+  "subject": "Gwalior Fort",
+  "artist": "Anuppyr007",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Gwalior_Fort_front.jpg"
+ },
+ "hampi": {
+  "w": 1280,
+  "h": 640,
+  "subject": "Hampi",
+  "artist": "iMahesh",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Wide_angle_of_Galigopuram_of_Virupaksha_Temple,_Hampi_(04)_(cropped).jpg"
+ },
+ "haridwar": {
+  "w": 800,
+  "h": 542,
+  "subject": "Har Ki Pauri",
+  "artist": "Sanatansociety\n\nPicture provided by Peter and Chris Marchand, provides free info",
+  "license": "CC BY-SA 2.5",
+  "source": "https://commons.wikimedia.org/wiki/File:Evening_view_of_Har-ki-Pauri,_Haridwar.jpg"
+ },
+ "hyderabad": {
+  "w": 1280,
+  "h": 1808,
+  "subject": "Charminar",
+  "artist": "DidierTais",
+  "license": "CC BY-SA 3.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Charminar_Hyderabad_1.jpg"
+ },
+ "jaipur": {
+  "w": 1280,
+  "h": 960,
+  "subject": "Hawa Mahal",
+  "artist": "Chainwit.",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:East_facade_Hawa_Mahal_Jaipur_from_ground_level_(July_2022)_-_img_01.jpg"
+ },
+ "jaisalmer": {
+  "w": 1280,
+  "h": 533,
+  "subject": "Jaisalmer Fort",
+  "artist": "Gérard Janot",
+  "license": "CC BY-SA 3.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Jaisalmer_forteresse.jpg"
+ },
+ "jim-corbett": {
+  "w": 1024,
+  "h": 683,
+  "subject": "Jim Corbett National Park",
+  "artist": "Soumyajit Nandy",
+  "license": "CC BY-SA 3.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Bengal-Tiger_Corbett_Uttarakhand_Dec-2013.jpg"
+ },
+ "jodhpur": {
+  "w": 1280,
+  "h": 854,
+  "subject": "Mehrangarh",
+  "artist": "Sanhitasinha",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Mehrangarh_Fort_sanhita.jpg"
+ },
+ "kanha": {
+  "w": 1280,
+  "h": 853,
+  "subject": "Kanha Tiger Reserve",
+  "artist": "Davidvraju",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Tiger_Kanha_National_Park.jpg"
+ },
+ "kaziranga": {
+  "w": 1280,
+  "h": 853,
+  "subject": "Kaziranga National Park",
+  "artist": "Diganta Talukdar",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Beauty_of_Kaziranga_National_Park.jpg"
+ },
+ "khajuraho": {
+  "w": 1280,
+  "h": 894,
+  "subject": "Khajuraho Group of Monuments",
+  "artist": "PLBechly",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:1_Khajuraho.jpg"
+ },
+ "kochi": {
+  "w": 1280,
+  "h": 853,
+  "subject": "Fort Kochi",
+  "artist": "Vyacheslav Argenberg",
+  "license": "CC BY 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Kochi,_Fishing_nets_at_sunset,_Kerala,_India.jpg"
+ },
+ "kohima": {
+  "w": 1280,
+  "h": 960,
+  "subject": "Kohima War Cemetery",
+  "artist": "PP Yoonus",
+  "license": "CC BY-SA 3.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Cemetery_with_kohima.jpeg"
+ },
+ "kolkata": {
+  "w": 1280,
+  "h": 573,
+  "subject": "Victoria Memorial, Kolkata",
+  "artist": "Subhrajyoti07",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Victoria_Memorial_situated_in_Kolkata.jpg"
+ },
+ "konark": {
+  "w": 1280,
+  "h": 854,
+  "subject": "Konark Sun Temple",
+  "artist": "Subham9423",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Konarka_Temple.jpg"
+ },
+ "kutch": {
+  "w": 1280,
+  "h": 960,
+  "subject": "Rann of Kutch",
+  "artist": "Superfast1111",
+  "license": "CC BY-SA 3.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Rann_of_Kutch_-_White_Desert.jpg"
+ },
+ "lakshadweep": {
+  "w": 1280,
+  "h": 943,
+  "subject": "Agatti Island",
+  "artist": "Julio",
+  "license": "CC BY-SA 2.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Agatti_Airstrip.jpg"
+ },
+ "leh": {
+  "w": 1280,
+  "h": 854,
+  "subject": "Thikse Monastery",
+  "artist": "Aksveer",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Thikse_Monastery_.jpg"
+ },
+ "loktak": {
+  "w": 1280,
+  "h": 835,
+  "subject": "Loktak Lake",
+  "artist": "Sudiptorana",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:The_Loktak_Lake.jpg"
+ },
+ "lucknow": {
+  "w": 1280,
+  "h": 853,
+  "subject": "Rumi Darwaza",
+  "artist": "Rishabhgpt",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Rumi_Darwaza_-_DSC2797-01.jpg"
+ },
+ "madurai": {
+  "w": 1280,
+  "h": 419,
+  "subject": "Meenakshi Temple",
+  "artist": "எஸ்ஸார்",
+  "license": "CC BY 3.0",
+  "source": "https://commons.wikimedia.org/wiki/File:An_aerial_view_of_Madurai_city_from_atop_of_Meenakshi_Amman_temple.jpg"
+ },
+ "mahabalipuram": {
+  "w": 1280,
+  "h": 853,
+  "subject": "Shore Temple",
+  "artist": "Swarna1311",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Shore_Temple_-Mamallapuram_-Tamil_Nadu_-N-TN-C55.jpg"
+ },
+ "manali": {
+  "w": 1280,
+  "h": 853,
+  "subject": "Rohtang Pass",
+  "artist": "Vyacheslav Argenberg",
+  "license": "CC BY 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Kullu_Valley_from_Rohtang_Pass,_India.jpg"
+ },
+ "mumbai": {
+  "w": 1280,
+  "h": 1280,
+  "subject": "Gateway of India",
+  "artist": "A.Savin",
+  "license": "FAL",
+  "source": "https://commons.wikimedia.org/wiki/File:Mumbai_03-2016_30_Gateway_of_India.jpg"
+ },
+ "munnar": {
+  "w": 1280,
+  "h": 853,
+  "subject": "Munnar",
+  "artist": "Kondephy",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Munnar_Overview.jpg"
+ },
+ "mysuru": {
+  "w": 1280,
+  "h": 845,
+  "subject": "Lalitha Mahal",
+  "artist": "Rb.sg",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Lalitha_Mahal_Palace_Hotel.jpg"
+ },
+ "nainital": {
+  "w": 1280,
+  "h": 960,
+  "subject": "Nainital Lake",
+  "artist": "Incorelabs",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:The_Boat_and_The_Lake.jpg"
+ },
+ "ooty": {
+  "w": 1280,
+  "h": 906,
+  "subject": "Nilgiri Mountain Railway",
+  "artist": "A.M.Hurrell (photo)No machine-readable author provided. AHEMSLTD~commonswiki ass",
+  "license": "CC BY 2.5",
+  "source": "https://commons.wikimedia.org/wiki/File:NMR_train_at_Ketti_05-02-26_75.jpeg"
+ },
+ "orchha": {
+  "w": 1280,
+  "h": 960,
+  "subject": "Orchha",
+  "artist": "Yann (talk)",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Chaturbhuj_Temple,_Orchha.jpg"
+ },
+ "pondicherry": {
+  "w": 1280,
+  "h": 853,
+  "subject": "Promenade Beach",
+  "artist": "Karthik Easvur",
+  "license": "CC BY-SA 3.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Pondicherry-Rock_beach_aerial_view.jpg"
+ },
+ "pushkar": {
+  "w": 1280,
+  "h": 853,
+  "subject": "Pushkar Lake",
+  "artist": "Felipe Skroski from Wellington, New Zealand",
+  "license": "CC BY 2.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Evening_lights_by_the_Pushkar_Lake,_Pushkar.jpg"
+ },
+ "ranthambore": {
+  "w": 1280,
+  "h": 960,
+  "subject": "Ranthambore National Park",
+  "artist": "THerrington",
+  "license": "CC BY-SA 3.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Ranthambore_National_Park.JPG"
+ },
+ "rishikesh": {
+  "w": 1280,
+  "h": 720,
+  "subject": "Lakshman Jhula",
+  "artist": "KaustubhNayyar",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Rishikesh-Lakshman_Jhula_by_Kaustubh_Nayyar.jpg"
+ },
+ "sanchi": {
+  "w": 1280,
+  "h": 1927,
+  "subject": "Sanchi Stupa",
+  "artist": "Biswarup Ganguly",
+  "license": "CC BY 3.0",
+  "source": "https://commons.wikimedia.org/wiki/File:East_Gateway_-_Stupa_1_-_Sanchi_Hill_2013-02-21_4398.JPG"
+ },
+ "shimla": {
+  "w": 1280,
+  "h": 852,
+  "subject": "Shimla",
+  "artist": "Navneet Sharma",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Landscape_of_Shimla_,_Himachal_Pradesh.jpg"
+ },
+ "spiti": {
+  "w": 1280,
+  "h": 852,
+  "subject": "Key Monastery",
+  "artist": "Pranav perspective",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:1000_Year_loop.jpg"
+ },
+ "srinagar": {
+  "w": 1280,
+  "h": 853,
+  "subject": "Dal Lake",
+  "artist": "Suhail Skindar Sofi",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Dal_Lake_Hazratbal_Srinagar.jpg"
+ },
+ "sundarbans": {
+  "w": 1280,
+  "h": 854,
+  "subject": "Sundarbans National Park",
+  "artist": "Soumyajit Nandy",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Sundarban_Tiger.jpg"
+ },
+ "tawang": {
+  "w": 1024,
+  "h": 664,
+  "subject": "Tawang Monastery",
+  "artist": "Rumelade",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:TawangMonastery.jpg"
+ },
+ "thekkady": {
+  "w": 1280,
+  "h": 707,
+  "subject": "Periyar National Park",
+  "artist": "Wouter Hagens",
+  "license": "Public domain",
+  "source": "https://commons.wikimedia.org/wiki/File:Periyar_National_Park.JPG"
+ },
+ "tirupati": {
+  "w": 1280,
+  "h": 853,
+  "subject": "Venkateswara Temple, Tirumala",
+  "artist": "Nikhilb239",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Tirumala_090615.jpg"
+ },
+ "udaipur": {
+  "w": 1280,
+  "h": 929,
+  "subject": "City Palace, Udaipur",
+  "artist": "Henrik Bennetsen",
+  "license": "CC BY-SA 2.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Udaipur_City_Palace.jpg"
+ },
+ "varanasi": {
+  "w": 1280,
+  "h": 957,
+  "subject": "Dashashwamedh Ghat",
+  "artist": "Saaremees",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Dasaswamedh_ghat-varanasi_india-andres_larin.jpg"
+ },
+ "varkala": {
+  "w": 1280,
+  "h": 853,
+  "subject": "Varkala Beach",
+  "artist": "Kondephy",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Varkala_beach_from_above.jpg"
+ },
+ "x-agra-fort": {
+  "w": 1280,
+  "h": 853,
+  "subject": "Agra Fort",
+  "artist": "A.Savin",
+  "license": "FAL",
+  "source": "https://commons.wikimedia.org/wiki/File:Agra_03-2016_16_Agra_Fort.jpg"
+ },
+ "x-amber-fort": {
+  "w": 1280,
+  "h": 1162,
+  "subject": "Amber Fort",
+  "artist": "Jakub Hałun",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:20191219_Fort_Amber,_Amer,_Jaipur_0955_9481.jpg"
+ },
+ "x-chaat": {
+  "w": 1280,
+  "h": 853,
+  "subject": "Chaat",
+  "artist": "Rupamdas75",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Dahi_puri,_Doi_phuchka.jpg"
+ },
+ "x-chandni-chowk": {
+  "w": 1280,
+  "h": 960,
+  "subject": "Chandni Chowk",
+  "artist": "Goutam1962",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Gurudwara_Sisganj_Sahib_Chandni_Chowk_19.jpg"
+ },
+ "x-fatehpur": {
+  "w": 1280,
+  "h": 1105,
+  "subject": "Fatehpur Sikri",
+  "artist": "Marcin Białek",
+  "license": "CC BY-SA 3.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Fatehput_Sikiri_Buland_Darwaza_gate_2010.jpg"
+ },
+ "x-india-gate": {
+  "w": 1280,
+  "h": 1397,
+  "subject": "India Gate",
+  "artist": "AKS.9955",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:India_Gate_front.jpg"
+ },
+ "x-jama-masjid": {
+  "w": 1280,
+  "h": 857,
+  "subject": "Jama Masjid, Delhi",
+  "artist": "Bikashrd",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Jama_Masjid_-_In_the_Noon.jpg"
+ },
+ "x-jantar-mantar": {
+  "w": 1280,
+  "h": 805,
+  "subject": "Jantar Mantar, Jaipur",
+  "artist": "Knowledge Seeker",
+  "license": "Public domain",
+  "source": "https://commons.wikimedia.org/wiki/File:Jantar_Mantar_at_Jaipur.jpg"
+ },
+ "x-khari-baoli": {
+  "w": 1280,
+  "h": 960,
+  "subject": "Khari Baoli",
+  "artist": "Manjit Singh",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:A_shop_selling_Dates_in_Khari_Baoli_market.jpg"
+ },
+ "x-petha": {
+  "w": 1280,
+  "h": 853,
+  "subject": "Petha",
+  "artist": "PJ.wikilovesfood",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Petha_kesari.JPG"
+ },
+ "x-qutub": {
+  "w": 1280,
+  "h": 1935,
+  "subject": "Qutb Minar",
+  "artist": "Wasir kasab",
+  "license": "CC BY 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Qutb_Minar_2022.jpg"
+ }
+}

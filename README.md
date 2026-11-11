@@ -2,25 +2,43 @@
 
 A marketplace where travellers from the US, UK, EU, Canada and Australia book licence-verified local guides and tours in India, at one all-in price.
 
-**Status: front-end preview.** The traveller-facing pages are built and deployed. The catalogue is sample data, booking is not wired, and the site tells search engines not to index it until `SITE_LIVE=1` is set.
+**Status: preview.** Travellers can browse 67 destinations across India. Tour operators can create an account, add tours and submit them for review. Traveller booking and payment are not built. The site tells search engines not to index it until `SITE_LIVE=1` is set.
 
 ## Run it
 
 ```bash
 npm install
+vercel env pull .env.local
+npm run db:migrate
 npm run dev
 ```
 
 | Path | What it is |
 |---|---|
-| `app/` | Pages: home, city hubs, tour pages, Taj Mahal fact page, guide sign-up pitch, sitemap and robots |
-| `components/` | Header and footer, tour card, booking box with two-time-zone display, illustrations, structured data |
-| `lib/data.ts` | The sample catalogue and the rules a listing must pass to build |
-| `lib/site.ts` | Site address and the `SITE_LIVE` switch |
+| `app/` | Home, destinations, state and destination pages, sample tour pages, operator sign-up, login and dashboard |
+| `app/operators/actions.ts` | Sign-up, login and listing actions, with all input checked on the server |
+| `lib/destinations.ts` | The destination catalogue by region and state |
+| `lib/data.ts` | Six sample tours that show the listing format; hidden once the site is live |
+| `lib/auth.ts`, `lib/db.ts` | Sessions, password hashing and database access (Neon Postgres) |
+| `db/schema.sql` | Tables: operators, sessions, listings |
+| `public/photos/`, `lib/photos.json` | Destination photographs from Wikimedia Commons and their credits, shown at `/credits` |
+| `scripts/fetch_photos.py` | Re-fetches photographs listed in `scripts/places.json` |
+
+## Reviewing operators
+
+There is no admin screen yet. Until there is:
+
+```bash
+npm run admin -- queue
+npm run admin -- verify operator@example.com
+npm run admin -- publish <listing-id>
+```
+
+A tour is shown to travellers only when the listing is published and its operator is verified.
 
 ## Going live
 
-Replace `lib/data.ts` with real listings, verify the figures on the fact page, then set `SITE_LIVE=1` and `NEXT_PUBLIC_SITE_URL` in the Vercel project. That one switch removes the preview banner, opens `robots.txt` and drops the noindex tag.
+Verify the figures on the Taj Mahal fact page, then set `SITE_LIVE=1` and `NEXT_PUBLIC_SITE_URL` in the Vercel project. That removes the preview banner and the sample tours, opens `robots.txt` and drops the noindex tag.
 
 ## Blueprint
 
