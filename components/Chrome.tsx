@@ -20,13 +20,13 @@ export function Logo({ light = false }: { light?: boolean }) {
 }
 
 export function Header() {
-  const item = "inline-flex min-h-12 items-center rounded-lg px-3 font-medium hover:bg-surface-alt";
+  const item = "min-h-12 items-center rounded-lg px-3 font-medium hover:bg-surface-alt";
   return (
     <header className="sticky top-0 z-30 border-b border-hair bg-surface/95 backdrop-blur">
       <div className="shell flex min-h-16 items-center gap-2 py-1">
         <Logo />
         <nav aria-label="Main" className="ml-2 flex flex-1 items-center text-small sm:ml-6">
-          <Link href="/destinations" className={item}>
+          <Link href="/destinations" className={`${item} inline-flex`}>
             Destinations
           </Link>
           <Link href="/for-operators" className={`${item} hidden sm:inline-flex`}>
@@ -35,7 +35,7 @@ export function Header() {
           <Link href="/operators/login" className={`${item} ml-auto hidden md:inline-flex`}>
             Operator log in
           </Link>
-          <Link href="/operators/signup" className="btn ml-auto min-h-11 px-4 text-small md:ml-2">
+          <Link href="/operators/signup" className="btn ml-auto min-h-11 whitespace-nowrap px-4 text-small md:ml-2">
             List your tours
           </Link>
         </nav>
