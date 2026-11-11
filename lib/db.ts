@@ -16,6 +16,7 @@ export type Operator = {
   base_city: string;
   licence_no: string | null;
   status: "pending" | "verified" | "suspended";
+  is_admin: boolean;
 };
 
 export type Listing = {
@@ -32,6 +33,7 @@ export type Listing = {
   highlights: string;
   included: string;
   status: "draft" | "submitted" | "published" | "withdrawn";
+  review_note: string | null;
   updated_at: string;
 };
 

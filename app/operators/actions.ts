@@ -101,7 +101,7 @@ export async function saveListing(_prev: FormState, form: FormData): Promise<For
       update listings set destination = ${f.destination}, title = ${f.title}, summary = ${f.summary},
         duration_hours = ${duration}, start_time = ${f.start_time}, price_inr = ${price}, max_group = ${group},
         meeting_point = ${f.meeting_point}, highlights = ${f.highlights}, included = ${f.included},
-        status = ${status}, updated_at = now()
+        status = ${status}, review_note = null, updated_at = now()
       where id = ${id} and operator_id = ${op.id}
       returning id`;
     if (!rows.length) return fail("That listing was not found on your account.");

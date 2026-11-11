@@ -40,3 +40,16 @@ create table if not exists listings (
 );
 create index if not exists listings_destination_idx on listings (destination) where status = 'published';
 create index if not exists listings_operator_idx on listings (operator_id);
+
+-- Admin review
+alter table operators add column if not exists is_admin boolean not null default false;
+alter table listings add column if not exists review_note text;
+
+create table if not exists admin_actions (
+  id         bigint generated always as identity primary key,
+  admin_id   uuid not null references operators (id),
+  action     text not null,
+  target     text not null,
+  note       text,
+  created_at timestamptz not null default now()
+);

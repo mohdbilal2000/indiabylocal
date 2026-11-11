@@ -26,15 +26,13 @@ npm run dev
 
 ## Reviewing operators
 
-There is no admin screen yet. Until there is:
+The review screen is at `/admin`. It answers 404 to anyone who is not an admin. To make an account an admin, create it at `/operators/signup`, then:
 
 ```bash
-npm run admin -- queue
-npm run admin -- verify operator@example.com
-npm run admin -- publish <listing-id>
+npm run admin -- grant you@example.com
 ```
 
-A tour is shown to travellers only when the listing is published and its operator is verified.
+From `/admin` you verify or suspend operators, publish submitted tours, send a tour back with a reason the operator sees, and take a live tour down. Every action is recorded. A tour is shown to travellers only when it is published and its operator is verified.
 
 ## Going live
 

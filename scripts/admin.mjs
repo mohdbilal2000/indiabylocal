@@ -3,6 +3,8 @@
 //   npm run admin -- verify <operator-email>
 //   npm run admin -- publish <listing-id>
 //   npm run admin -- reject <listing-id>
+//   npm run admin -- grant <operator-email>     (gives that account the /admin screen)
+//   npm run admin -- revoke <operator-email>
 import { neon } from "@neondatabase/serverless";
 
 const sql = neon(process.env.DATABASE_URL_UNPOOLED || process.env.DATABASE_URL);
@@ -21,6 +23,10 @@ if (cmd === "queue") {
   console.log("Shown only if the operator is verified. The destination page refreshes within five minutes.");
 } else if (cmd === "reject" && arg) {
   console.table(await sql`update listings set status = 'draft', updated_at = now() where id = ${arg} returning id, title, status`);
+} else if ((cmd === "grant" || cmd === "revoke") && arg) {
+  const rows = await sql`update operators set is_admin = ${cmd === "grant"} where email = ${arg.toLowerCase()} returning email, is_admin`;
+  if (rows.length) console.table(rows);
+  else console.log("No account with that email. Create one at /operators/signup first.");
 } else {
-  console.log("Usage: npm run admin -- queue | verify <email> | publish <listing-id> | reject <listing-id>");
+  console.log("Usage: npm run admin -- queue | verify <email> | publish <id> | reject <id> | grant <email> | revoke <email>");
 }

@@ -26,7 +26,12 @@ export default async function Dashboard() {
           <p className="text-small text-muted">{op.business_name}</p>
           <h1 className="text-h2">Your tours</h1>
         </div>
-        <div className="flex gap-3">
+        <div className="flex flex-wrap gap-3">
+          {op.is_admin && (
+            <Link href="/admin" className="btn-ghost">
+              Admin
+            </Link>
+          )}
           <Link href="/operators/listings/new" className="btn">
             Add a tour
           </Link>
@@ -63,6 +68,11 @@ export default async function Dashboard() {
                   {destinationBySlug(l.destination)?.name ?? l.destination} · {inr(l.price_inr)} per person ·{" "}
                   {Number(l.duration_hours)} h
                 </p>
+                {l.review_note && l.status === "draft" && (
+                  <p className="mt-1 text-small text-warning">
+                    <span aria-hidden="true">! </span>Sent back by our reviewer: {l.review_note}
+                  </p>
+                )}
               </div>
               <span className={`rounded-full px-3 py-1 text-caption font-semibold ${STATUS[l.status].cls}`}>
                 {STATUS[l.status].label}
