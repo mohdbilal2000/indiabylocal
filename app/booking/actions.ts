@@ -39,9 +39,17 @@ create table if not exists booking_requests (
   email       text not null,
   phone       text,
   note        text,
+  mailbox     text,
   status      text not null default 'new' check (status in ('new', 'answered', 'closed')),
   created_at  timestamptz not null default now()
 )`;
+
+/** One mailbox written many ways (a+tag@, gmail dots) counts once. */
+function mailboxKey(email: string): string {
+  const [local, domain] = email.split("@");
+  const base = local.split("+")[0];
+  return `${/^(gmail|googlemail)\.com$/.test(domain) ? base.replace(/\./g, "") : base}@${domain === "googlemail.com" ? "gmail.com" : domain}`;
+}
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const CODE_ALPHABET = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
@@ -109,14 +117,18 @@ export async function requestBooking(input: RequestInput): Promise<RequestResult
   const insert = async () => {
     // Opened here so that a missing or unreachable database becomes a plain message, not a crashed page.
     const sql = db();
-    const recent = await sql`select count(*)::int as n from booking_requests where email = ${email} and created_at > now() - interval '1 day'`;
-    if ((recent[0].n as number) >= 5) return null;
     const code = newCode();
-    await sql`
-      insert into booking_requests (code, tour_ref, title, destination, option_name, tour_date, people, total, currency, name, email, phone, note)
-      values (${code}, ${item.ref}, ${item.title}, ${item.city}, ${option.name}, ${date}, ${people}, ${total}, ${item.currency},
-              ${name}, ${email}, ${phone || null}, ${note || null})`;
-    return code;
+    const mailbox = mailboxKey(email);
+    // One statement, so the limits cannot be beaten by sending requests at the same moment:
+    // five a day per mailbox, and 200 an hour in total.
+    const rows = await sql`
+      insert into booking_requests (code, tour_ref, title, destination, option_name, tour_date, people, total, currency, name, email, phone, note, mailbox)
+      select ${code}, ${item.ref}, ${item.title}, ${item.city}, ${option.name}, ${date}, ${people}, ${total}, ${item.currency},
+             ${name}, ${email}, ${phone || null}, ${note || null}, ${mailbox}
+      where (select count(*) from booking_requests where mailbox = ${mailbox} and created_at > now() - interval '1 day') < 5
+        and (select count(*) from booking_requests where created_at > now() - interval '1 hour') < 200
+      returning code`;
+    return rows.length ? (rows[0].code as string) : null;
   };
 
   try {
@@ -129,7 +141,7 @@ export async function requestBooking(input: RequestInput): Promise<RequestResult
       await db().query(CREATE_TABLE);
       code = await insert();
     }
-    if (!code) return fail("You have sent several requests today. We will reply to those first.");
+    if (!code) return fail("We are not able to take another request right now. Please try again later, or email us.");
     return { ok: true, code };
   } catch {
     return fail("We could not save your request just now. Please try again in a minute.");

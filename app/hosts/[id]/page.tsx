@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { cache } from "react";
 import { Crumbs } from "@/components/Chrome";
 import { JsonLd } from "@/components/JsonLd";
 import { ListingCard } from "@/components/TourCard";
@@ -13,7 +14,8 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 type Host = { id: string; business_name: string; base_city: string; licence_no: string | null; created_at: string };
 
 /** Only verified operators have a public page. Contact details are never selected. */
-async function load(id: string): Promise<{ host: Host; listings: PublicListing[] } | null> {
+const load = cache(loadUncached);
+async function loadUncached(id: string): Promise<{ host: Host; listings: PublicListing[] } | null> {
   if (!UUID.test(id)) return null;
   const sql = db();
   const hosts = await sql`select id, business_name, base_city, licence_no, created_at from operators where id = ${id} and status = 'verified'`;

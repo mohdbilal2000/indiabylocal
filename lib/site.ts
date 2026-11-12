@@ -1,5 +1,10 @@
 export const SITE_NAME = "IndiaByLocal";
 
+const explicit = process.env.NEXT_PUBLIC_SITE_URL || process.env.VERCEL_PROJECT_PRODUCTION_URL;
+if (process.env.SITE_LIVE === "1" && !explicit) {
+  throw new Error("Set NEXT_PUBLIC_SITE_URL before SITE_LIVE=1, or every canonical link would point at localhost.");
+}
+
 export const SITE_URL = (
   process.env.NEXT_PUBLIC_SITE_URL ||
   (process.env.VERCEL_PROJECT_PRODUCTION_URL

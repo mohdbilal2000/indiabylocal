@@ -38,7 +38,7 @@ export function SaveButton({ id, title, className = "" }: { id: string; title: s
     <button
       type="button"
       aria-pressed={saved}
-      aria-label={saved ? `Remove ${title} from your saved tours` : `Save ${title}`}
+      aria-label={`Save ${title}`}
       onClick={toggle}
       onAnimationEnd={() => setPop(false)}
       className={`flex size-11 items-center justify-center rounded-full bg-card/95 shadow ${className}`}

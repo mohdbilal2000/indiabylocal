@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BookingBox, MobileBooking } from "@/components/BookingBox";
 import { Crumbs } from "@/components/Chrome";
@@ -85,6 +86,7 @@ export default async function TourPage({ params }: Props) {
     ["Pickup", tour.pickup],
     ["Language", tour.languages.join(", ")],
     ["Cancellation", "Free until 24 hours before"],
+    ...(tour.road ? [["On the road", tour.road]] : []),
   ];
 
   return (
@@ -114,9 +116,9 @@ export default async function TourPage({ params }: Props) {
           </div>
           <p className="mt-2 text-caption text-muted">
             Photographs of the places on the route.{" "}
-            <a href="/credits" className="underline">
+            <Link href="/credits" className="underline">
               Credits
-            </a>
+            </Link>
           </p>
           <p className="mt-5 text-small text-muted">
             <span className="mr-2 rounded-full bg-surface-alt px-2.5 py-1 text-caption font-semibold text-ink">Sample listing</span>
@@ -227,6 +229,33 @@ export default async function TourPage({ params }: Props) {
               <ItineraryTimeline stops={tour.itinerary} />
             </div>
           </section>
+
+          <aside aria-label="Before you go" className="mt-12 rounded-2xl border border-hair bg-card p-5">
+            <p className="font-semibold">Worried about scams, traffic, heat or food?</p>
+            <p className="mt-1 text-small text-muted">Ten plain answers, with what helps and what we do.</p>
+            <ul className="mt-3 flex flex-wrap gap-2 text-small">
+              {[
+                ["scams", "Touts and scams"],
+                ["traffic", "Drive times"],
+                ["crowds", "Crowds and heat"],
+                ["hygiene", "Food and water"],
+                ["safety", "Safety"],
+              ].map(([id, label]) => (
+                <li key={id}>
+                  <Link href={`/before-you-go#${id}`} className="inline-flex min-h-11 items-center rounded-full border border-line px-4 font-medium hover:border-brand">
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            {tour.city === "agra" && (
+              <p className="mt-3 text-small">
+                <Link href="/india/agra/taj-mahal/tickets-timings" className="link font-semibold">
+                  Taj Mahal tickets and timings for foreign visitors
+                </Link>
+              </p>
+            )}
+          </aside>
 
           <section aria-labelledby="meet-h" className="mt-12">
             <h2 id="meet-h" className="text-h3">

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { cache } from "react";
 import { BookingBox, MobileBooking } from "@/components/BookingBox";
 import { Crumbs } from "@/components/Chrome";
 import { Money } from "@/components/Currency";
@@ -17,7 +18,8 @@ import { SITE_LIVE, SITE_URL } from "@/lib/site";
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-async function load(id: string): Promise<PublicListing | null> {
+const load = cache(loadUncached);
+async function loadUncached(id: string): Promise<PublicListing | null> {
   if (!UUID.test(id)) return null;
   const rows = await db()`
     select l.*, o.business_name, o.licence_no
@@ -73,6 +75,7 @@ export default async function ListingPage({ params }: Props) {
           name: l.title,
           description: l.summary,
           url,
+          image: `${SITE_URL}/photos/${l.destination}.jpg`,
           provider: {
             "@type": "Organization",
             "@id": providerId,

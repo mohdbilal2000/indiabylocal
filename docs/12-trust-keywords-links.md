@@ -73,3 +73,35 @@ What the research supports, in order of realistic return:
 - [ ] Confirm the 1363 helpline number on the Ministry of Tourism site.
 - [ ] Time the Delhi to Agra drive and the Agra to Jaipur drive on several days and update the ranges in `lib/plans.ts` and `lib/answers.ts`.
 - [ ] Have a local guide read the plans for pace and closing days.
+
+## 10. Code audit, second pass (12 Nov 2026)
+
+A separate reviewer read the whole repository looking for defects. 31 findings; none critical.
+
+**Fixed**
+- A booking made less than 24 hours before the start no longer says "free cancellation until" a time already past; it says it cannot be cancelled free.
+- A damaged saved-tours cookie no longer crashes pages.
+- Impossible dates such as 30 February are rejected with a clear message instead of a generic save error.
+- The request limit is now one database statement (five per mailbox per day, 200 per hour overall), counts `name+tag@` and Gmail dot variants once, and has an index.
+- Calendar: one tab stop, arrow keys move between days, unavailable days are announced as unavailable.
+- Booking form: errors name the field, are tied to it with `aria-describedby`, and focus moves to it.
+- "Back to the tour" closes the sheet on phones. Focus returns to the "Check dates" button.
+- Animation code: the booking sheet loads the larger engine only when opened; the itinerary uses the small one. Reduced-motion now also stops the itinerary and photo-strip movement.
+- Save button label is constant ("Save …") with `aria-pressed`, so screen readers say "pressed", not "Remove … pressed".
+- Delhi–Agra sample tour times corrected to match the stated four-hour drive; "time on the road" added to the facts.
+- Structured data: absolute image URLs, a price range (`AggregateOffer`) instead of one price, an image on operator listings.
+- Open Graph metadata no longer drops title and description on the home and destination pages.
+- Destination pages with no tour on them are titled and described as travel guides, not "tours with local guides".
+- Search box has a visible focus ring; small touch targets enlarged; logo "By" and shadows corrected for contrast and dark mode.
+- `robots.txt` disallows admin, operator, saved and booking paths; the build refuses `SITE_LIVE=1` without a site address.
+- Air-quality note added to the date picker for November to January.
+- Drive times, hygiene, dress, air quality and scams now have pages (`/before-you-go`, `/plans`) and are linked from every tour and the Delhi, Agra and Jaipur pages.
+
+**Not fixed, and why**
+- **Limits by network address.** Needs the hosting provider's firewall or a rate-limit service; set one up before launch. Until then, someone can still send 200 requests an hour from many addresses, and someone who knows a traveller's email can use up that address's five a day.
+- **Notification of new requests.** Requests are stored and shown in `/admin`, but nobody is emailed. Check `/admin` daily during the preview, or add email.
+- **Price flash.** Every visitor first sees dollars, then their currency. Reading it on the server would make every page uncacheable, so we accept a brief swap.
+- **Company address, logo and contact point** in structured data: needs the registered company details.
+- **FAQ markup** no longer earns rich results on a commercial site. It is kept because AI assistants read it, not for search appearance.
+- **Sitemap** lists catalogue pages only, not operator listings and profiles.
+- **Search box** does not yet announce the highlighted suggestion to screen readers.

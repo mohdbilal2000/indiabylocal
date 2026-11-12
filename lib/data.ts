@@ -46,6 +46,8 @@ export type Tour = {
   pickup: string;
   languages: string[];
   trust: TrustKey[];
+  /** Time on the road, for tours that include a long drive. */
+  road?: string;
   /** 0 = Sunday. Days the tour cannot run, with the reason shown to the traveller. */
   closedWeekdays?: { day: number; reason: string }[];
   /** Per-person monument ticket cost when it is not in the price, in US dollars. */
@@ -130,6 +132,7 @@ export const tours: Tour[] = [
     pickup: "Hotel pickup in Delhi, Gurugram or Noida",
     languages: ["English"],
     trust: ["licence", "monument", "promise"],
+    road: "About 8 hours on the road in all",
     closedWeekdays: [{ day: 5, reason: "The Taj Mahal is closed on Fridays." }],
     ticketsUsd: 24,
     ticketsNote: "Foreign-visitor entry to the Taj Mahal, the main mausoleum and Agra Fort.",
@@ -150,13 +153,13 @@ export const tours: Tour[] = [
       { item: "Tips", amount: "Your choice" },
     ],
     itinerary: [
-      { time: "06:00", title: "Leave Delhi", text: "Pickup from your hotel. About three and a half hours on the expressway.", detail: "The driver takes the Yamuna Expressway. There is one rest stop at a clean service area about half-way.", tips: [{ kind: "know", text: "Carry your passport. It is needed for monument tickets." }] },
-      { time: "09:45", title: "Meet your guide in Agra", text: "Your guide joins the car near the East Gate.", detail: "From here your guide stays with you until you leave Agra." },
-      { time: "10:00", title: "Taj Mahal", text: "Two hours inside.", detail: "Security, the gardens, the marble platform and the tomb chamber, then the mosque side. Mid-morning is busier than sunrise, and your guide picks the order to suit the queues.", walk: "About 2 km in all, level", tips: [{ kind: "photo", text: "No photography inside the main mausoleum." }, { kind: "know", text: "Food, tobacco, tripods and large bags are not allowed in." }] },
+      { time: "06:00", title: "Leave Delhi", text: "Pickup from your hotel. About four hours on the expressway; traffic can add more.", detail: "The driver takes the Yamuna Expressway. There is one rest stop at a clean service area about half-way.", tips: [{ kind: "know", text: "Carry your passport. It is needed for monument tickets." }] },
+      { time: "10:00", title: "Meet your guide in Agra", text: "Your guide joins the car near the East Gate.", detail: "From here your guide stays with you until you leave Agra." },
+      { time: "10:15", title: "Taj Mahal", text: "Two hours inside.", detail: "Security, the gardens, the marble platform and the tomb chamber, then the mosque side. Mid-morning is busier than sunrise, and your guide picks the order to suit the queues.", walk: "About 2 km in all, level", tips: [{ kind: "photo", text: "No photography inside the main mausoleum." }, { kind: "know", text: "Food, tobacco, tripods and large bags are not allowed in." }] },
       { time: "12:30", title: "Lunch", text: "A restaurant you pick from three we suggest, or your own choice.", detail: "You pay the restaurant directly at menu price. Your guide does not choose for you and takes no commission." },
       { time: "14:00", title: "Agra Fort", text: "Ninety minutes in the palaces and audience halls.", detail: "The fort where Shah Jahan spent his last years, with a view of the Taj across the river from the palace balconies.", walk: "About 1.5 km, with ramps and uneven stone", tips: [{ kind: "know", text: "Wear shoes with a grip. The entrance ramp is steep." }] },
       { time: "15:45", title: "Leave Agra", text: "Straight back. No stops unless you ask for one.", detail: "Your guide leaves you at the car. If anyone suggests a marble or carpet showroom, the answer is no unless you asked for it." },
-      { time: "19:00", title: "Back in Delhi", text: "Drop at your hotel. Evening traffic can add up to an hour." },
+      { time: "19:45", title: "Back in Delhi", text: "Drop at your hotel. Evening traffic can add up to an hour, so do not book a late flight the same night." },
     ],
     meeting: "Your hotel or home in Delhi, Gurugram or Noida.",
     options: [

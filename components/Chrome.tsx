@@ -17,7 +17,7 @@ export function PreviewBanner() {
 export function Logo({ light = false }: { light?: boolean }) {
   return (
     <Link href="/" className={`min-w-0 truncate font-display text-h4 font-semibold tracking-tight no-underline ${light ? "text-white" : "text-ink"}`}>
-      India<span className={light ? "text-action" : "text-terracotta"}>By</span>Local
+      India<span className={light ? "text-action" : "text-brand"}>By</span>Local
     </Link>
   );
 }
@@ -185,7 +185,7 @@ export function Crumbs({ items }: { items: { name: string; href?: string }[] }) 
           <li key={it.name} className="flex items-center gap-x-2">
             {i > 0 && <span aria-hidden="true">/</span>}
             {it.href ? (
-              <Link href={it.href} className="inline-flex min-h-8 items-center hover:underline">
+              <Link href={it.href} className="inline-flex min-h-11 items-center hover:underline">
                 {it.name}
               </Link>
             ) : (

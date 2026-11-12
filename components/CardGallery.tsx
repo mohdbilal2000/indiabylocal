@@ -18,11 +18,11 @@ export function CardGallery({ count, label, children }: { count: number; label: 
 
   const go = (to: number) => {
     const el = track.current;
-    if (el) el.scrollTo({ left: to * el.clientWidth, behavior: "smooth" });
+    if (el) el.scrollTo({ left: to * el.clientWidth, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
   };
 
   const arrow =
-    "absolute top-1/2 z-20 hidden size-9 -translate-y-1/2 items-center justify-center rounded-full bg-card/95 text-ink opacity-0 shadow transition-opacity group-hover:opacity-100 focus-visible:opacity-100 disabled:hidden [@media(hover:hover)]:flex";
+    "absolute top-1/2 z-20 hidden size-11 -translate-y-1/2 items-center justify-center rounded-full bg-card/95 text-ink opacity-0 shadow transition-opacity group-hover:opacity-100 focus-visible:opacity-100 disabled:hidden [@media(hover:hover)]:flex";
 
   return (
     <div className="relative z-10">

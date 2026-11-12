@@ -8,7 +8,7 @@ export default function robots(): MetadataRoute.Robots {
   }
   // Search, user-triggered and AI crawlers are all welcome once the data is real.
   return {
-    rules: [{ userAgent: "*", allow: "/" }],
+    rules: [{ userAgent: "*", allow: "/", disallow: ["/admin", "/operators/", "/saved", "/booking"] }],
     sitemap: `${SITE_URL}/sitemap.xml`,
   };
 }

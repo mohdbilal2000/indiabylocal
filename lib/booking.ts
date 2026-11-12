@@ -83,9 +83,16 @@ export function startInstant(date: string, time: string): Date {
   return new Date(Date.parse(`${date}T${time}:00Z`) - INDIA_OFFSET_MIN * 60_000);
 }
 
+/** Free cancellation ends 24 hours before the start. A booking made inside that window has none. */
+export function cancellation(date: string, time: string, now: number): { free: boolean; deadline: Date } {
+  const deadline = new Date(startInstant(date, time).getTime() - DAY);
+  return { free: deadline.getTime() > now, deadline };
+}
+
 /** Empty when the date can be booked; otherwise the reason, in words for the traveller. */
 export function dateProblem(item: Bookable, date: string, now: number): string {
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || Number.isNaN(Date.parse(`${date}T00:00:00Z`))) return "Please pick a date.";
+  // The round trip rejects dates such as 2026-02-30, which JavaScript would quietly accept.
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || iso(Date.parse(`${date}T00:00:00Z`)) !== date) return "Please pick a date.";
   if (date < indiaDate(now, 1)) return "Please pick a date from tomorrow onwards.";
   if (date > indiaDate(now, MAX_DAYS_AHEAD)) return "Please pick a date within the next twelve months.";
   const closed = item.closedWeekdays.find((c) => c.day === weekdayOf(date));

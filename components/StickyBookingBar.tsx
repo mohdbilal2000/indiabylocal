@@ -54,8 +54,8 @@ export function StickyBookingBar({ item, whatsapp }: { item: Bookable; whatsapp:
   useEffect(() => () => clearTimeout(timer.current), []);
 
   return (
-    <Motion>
-      <div className="fixed inset-x-0 bottom-0 z-20 border-t border-hair bg-card/95 px-4 pt-3 pb-[max(12px,env(safe-area-inset-bottom))] shadow-[0_-6px_24px_rgb(2_6_23/0.08)] backdrop-blur lg:hidden">
+    <>
+      <div className="fixed inset-x-0 bottom-0 z-20 border-t border-hair bg-card/95 px-4 pt-3 pb-[max(12px,env(safe-area-inset-bottom))] shadow-[0_-6px_24px_var(--shadow-ink)] backdrop-blur lg:hidden">
         <div className="mx-auto flex max-w-2xl items-center justify-between gap-4">
           <p className="nums min-w-0 text-small leading-tight">
             <span className="text-muted">From </span>
@@ -72,6 +72,7 @@ export function StickyBookingBar({ item, whatsapp }: { item: Bookable; whatsapp:
       </div>
 
       {mounted && (
+        <Motion drag>
         <m.dialog
           ref={dialog}
           aria-label={`Book: ${item.title}`}
@@ -115,11 +116,12 @@ export function StickyBookingBar({ item, whatsapp }: { item: Bookable; whatsapp:
           </div>
           <div className="relative min-h-0 flex-1 overflow-y-auto overscroll-contain border-t border-hair px-4 pt-4 pb-[max(20px,env(safe-area-inset-bottom))]">
             <div className="mx-auto max-w-md">
-              <BookingPanel item={item} whatsapp={whatsapp} />
+              <BookingPanel item={item} whatsapp={whatsapp} onDone={close} />
             </div>
           </div>
         </m.dialog>
+        </Motion>
       )}
-    </Motion>
+    </>
   );
 }

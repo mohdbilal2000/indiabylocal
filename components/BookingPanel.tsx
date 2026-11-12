@@ -4,7 +4,7 @@ import { useEffect, useId, useMemo, useRef, useState, useTransition } from "reac
 import { requestBooking } from "@/app/booking/actions";
 import { Money, RateNote, RupeeEquivalent } from "@/components/Currency";
 import { PromiseSeal } from "@/components/Promise";
-import { type Bookable, MAX_DAYS_AHEAD, dateProblem, indiaDate, quote, startInstant, weekdayOf } from "@/lib/booking";
+import { type Bookable, MAX_DAYS_AHEAD, cancellation, dateProblem, indiaDate, quote, startInstant, weekdayOf } from "@/lib/booking";
 import { TIER_LABELS, tierIndex } from "@/lib/data";
 import { seasonNote } from "@/lib/season";
 
@@ -30,6 +30,24 @@ function Calendar({ item, value, onPick, today }: { item: Bookable; value: strin
     setCursor(`${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}`);
   };
   const nav = "flex size-11 items-center justify-center rounded-full border border-line bg-card disabled:opacity-30";
+  const dates = Array.from({ length: days }, (_, i) => `${cursor}-${pad(i + 1)}`);
+  const bookable = dates.filter((d) => !dateProblem(item, d, today));
+  // Only one day is a tab stop; the arrow keys move between the rest.
+  const stop = value && bookable.includes(value) ? value : bookable[0];
+  const grid = useRef<HTMLDivElement>(null);
+  const arrows = (e: React.KeyboardEvent) => {
+    const step = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -7, ArrowDown: 7 }[e.key];
+    const here = (document.activeElement as HTMLElement | null)?.dataset.date;
+    if (!step || !here) return;
+    e.preventDefault();
+    let i = dates.indexOf(here);
+    while ((i += step) >= 0 && i < dates.length) {
+      if (bookable.includes(dates[i])) {
+        grid.current?.querySelector<HTMLButtonElement>(`[data-date="${dates[i]}"]`)?.focus();
+        return;
+      }
+    }
+  };
 
   return (
     <div>
@@ -48,7 +66,7 @@ function Calendar({ item, value, onPick, today }: { item: Bookable; value: strin
           </svg>
         </button>
       </div>
-      <div className="nums mt-2 grid grid-cols-7 gap-y-1 text-center">
+      <div ref={grid} onKeyDown={arrows} className="nums mt-2 grid grid-cols-7 gap-y-1 text-center">
         {WEEKDAYS.map((w) => (
           <span key={w} aria-hidden="true" className="py-1 text-caption text-muted">
             {w}
@@ -68,7 +86,9 @@ function Calendar({ item, value, onPick, today }: { item: Bookable; value: strin
               type="button"
               disabled={Boolean(problem)}
               aria-pressed={picked}
-              aria-label={`${longDate(date)}${closed ? ", closed" : ""}`}
+              data-date={date}
+              tabIndex={date === stop ? 0 : -1}
+              aria-label={`${longDate(date)}${closed ? ", closed" : problem ? ", unavailable" : ""}`}
               onClick={() => onPick(date)}
               className={`mx-auto flex aspect-square w-full max-w-11 items-center justify-center rounded-full text-small ${
                 picked
@@ -114,7 +134,7 @@ function Stepper({ value, max, onChange, labelId }: { value: number; max: number
  * Then the traveller's details, sent as a request. Nothing is charged here;
  * a person replies by email to confirm.
  */
-export function BookingPanel({ item, whatsapp }: { item: Bookable; whatsapp: string | null }) {
+export function BookingPanel({ item, whatsapp, onDone }: { item: Bookable; whatsapp: string | null; onDone?: () => void }) {
   const uid = useId();
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [optionId, setOptionId] = useState(item.options[0].id);
@@ -125,6 +145,7 @@ export function BookingPanel({ item, whatsapp }: { item: Bookable; whatsapp: str
   const [needDate, setNeedDate] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", phone: "", note: "", website: "" });
   const [error, setError] = useState("");
+  const [bad, setBad] = useState<{ name?: string; email?: string }>({});
   const [code, setCode] = useState("");
   const [pending, start] = useTransition();
   const top = useRef<HTMLDivElement>(null);
@@ -148,12 +169,16 @@ export function BookingPanel({ item, whatsapp }: { item: Bookable; whatsapp: str
       local: inIndia
         ? null
         : `${new Intl.DateTimeFormat("en-GB", { timeZone: zone, weekday: "short", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).format(at)} in ${zone.split("/").pop()?.replace(/_/g, " ")}`,
-      cancelBy: new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Kolkata", weekday: "long", day: "numeric", month: "long" }).format(
-        new Date(at.getTime() - 24 * 3600_000),
-      ),
+      cancel: (() => {
+        const c = cancellation(date, item.startTime, today ?? Date.now());
+        return {
+          free: c.free,
+          by: new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Kolkata", weekday: "long", day: "numeric", month: "long" }).format(c.deadline),
+        };
+      })(),
       season: seasonNote(item.city, Number(date.slice(5, 7))),
     };
-  }, [date, zone, item.startTime, item.city]);
+  }, [date, zone, today, item.startTime, item.city]);
 
   const go = (to: 1 | 2 | 3) => {
     setStep(to);
@@ -172,6 +197,14 @@ export function BookingPanel({ item, whatsapp }: { item: Bookable; whatsapp: str
   const send = (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+    const found: { name?: string; email?: string } = {};
+    if (form.name.trim().length < 2) found.name = "Please enter your name.";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) found.email = "Please enter a valid email address, such as name@example.com.";
+    setBad(found);
+    if (found.name || found.email) {
+      document.getElementById(`${uid}-${found.name ? "n" : "e"}`)?.focus();
+      return;
+    }
     start(async () => {
       const result = await requestBooking({ ref: item.ref, optionId, date, people, ...form });
       if (result.ok) {
@@ -201,7 +234,7 @@ export function BookingPanel({ item, whatsapp }: { item: Bookable; whatsapp: str
             ? `This tour is a sample while we sign up our first guides in ${item.cityName}. We will email ${form.email} as soon as a checked guide offers it.`
             : `We will email ${form.email} to confirm ${summary}, usually within a day. You pay only after you have a named guide.`}
         </p>
-        <button type="button" className="btn-ghost mt-5 w-full" onClick={() => go(1)}>
+        <button type="button" className="btn-ghost mt-5 w-full" onClick={() => (onDone ? onDone() : go(1))}>
           Back to the tour
         </button>
       </div>
@@ -235,11 +268,21 @@ export function BookingPanel({ item, whatsapp }: { item: Bookable; whatsapp: str
         <label htmlFor={`${uid}-n`} className="mt-4 block text-small font-semibold">
           Your name
         </label>
-        <input id={`${uid}-n`} className={field} autoComplete="name" required maxLength={80} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+        <input id={`${uid}-n`} className={field} autoComplete="name" required maxLength={80} aria-invalid={bad.name ? true : undefined} aria-describedby={bad.name ? `${uid}-ne` : undefined} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+        {bad.name && (
+          <p id={`${uid}-ne`} className="mt-1 text-small font-semibold text-error">
+            {bad.name}
+          </p>
+        )}
         <label htmlFor={`${uid}-e`} className="mt-3 block text-small font-semibold">
           Email
         </label>
-        <input id={`${uid}-e`} className={field} type="email" inputMode="email" autoComplete="email" required maxLength={160} value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+        <input id={`${uid}-e`} className={field} type="email" inputMode="email" autoComplete="email" required maxLength={160} aria-invalid={bad.email ? true : undefined} aria-describedby={bad.email ? `${uid}-ee` : undefined} value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+        {bad.email && (
+          <p id={`${uid}-ee`} className="mt-1 text-small font-semibold text-error">
+            {bad.email}
+          </p>
+        )}
         <label htmlFor={`${uid}-p`} className="mt-3 block text-small font-semibold">
           WhatsApp or phone <span className="font-normal text-muted">(optional, with country code)</span>
         </label>
@@ -295,7 +338,7 @@ export function BookingPanel({ item, whatsapp }: { item: Bookable; whatsapp: str
         <p className="text-small font-semibold">Date</p>
         <div className="mt-2">
           {today === null ? (
-            <div className="h-80 rounded-xl bg-surface-alt" aria-hidden="true" />
+            <div className="h-[25rem] rounded-xl bg-surface-alt" aria-hidden="true" />
           ) : (
             <Calendar
               item={item}
@@ -330,9 +373,15 @@ export function BookingPanel({ item, whatsapp }: { item: Bookable; whatsapp: str
             )}
             .
           </p>
-          <p className="mt-1 text-verified">
-            <span aria-hidden="true">✓ </span>Free cancellation until <span className="nums">{item.startTime}</span> India time on {when.cancelBy}.
-          </p>
+          {when.cancel.free ? (
+            <p className="mt-1 text-verified">
+              <span aria-hidden="true">✓ </span>Free cancellation until <span className="nums">{item.startTime}</span> India time on {when.cancel.by}.
+            </p>
+          ) : (
+            <p className="mt-1 text-warning">
+              <span aria-hidden="true">! </span>This is less than 24 hours before the start, so it cannot be cancelled free once confirmed. Pick a later day if you may need to change it.
+            </p>
+          )}
           {when.season && (
             <p className="mt-1 text-warning">
               <span aria-hidden="true">☀ </span>

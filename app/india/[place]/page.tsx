@@ -8,6 +8,7 @@ import { Photo } from "@/components/Photo";
 import { PlanGuide, planRows } from "@/components/PlanGuide";
 import { ListingCard, TourCard } from "@/components/TourCard";
 import { toursIn } from "@/lib/data";
+import { cache } from "react";
 import { publishedIn } from "@/lib/db";
 import { destinationBySlug, destinations, slugify } from "@/lib/destinations";
 import { guideFor } from "@/lib/guides";
@@ -18,6 +19,8 @@ export const dynamicParams = false;
 /** Operator listings come from the database; pages refresh every five minutes and on each publish. */
 export const revalidate = 300;
 
+const listingsFor = cache((slug: string) => publishedIn(slug));
+
 export function generateStaticParams() {
   return destinations.map((p) => ({ place: p.slug }));
 }
@@ -27,18 +30,20 @@ type Props = { params: Promise<{ place: string }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const p = destinationBySlug((await params).place);
   if (!p) return {};
+  // A page with no tour on it is a planning guide, and its title and description say so.
+  const hasTours = (await listingsFor(p.slug)).length > 0 || (!SITE_LIVE && toursIn(p.slug).length > 0);
   return {
-    title: `${p.name} tours with local guides: ${p.known.slice(0, 2).join(", ")}`,
-    description: `${p.blurb} Best time to visit: ${p.best}.`.slice(0, 158),
+    title: hasTours ? `${p.name} tours with local guides: ${p.known.slice(0, 2).join(", ")}` : `${p.name} travel guide: best time, how many days, how to get there`,
+    description: (hasTours ? `${p.blurb} Best time to visit: ${p.best}.` : `When to go to ${p.name}, how many days you need, how to get there and what to know before you go. Best time: ${p.best}.`).slice(0, 158),
     alternates: { canonical: `/india/${p.slug}`, languages: { en: `/india/${p.slug}`, "x-default": `/india/${p.slug}` } },
-    openGraph: { type: "website", url: `/india/${p.slug}`, images: [{ url: `/photos/${p.slug}.jpg` }] },
+    openGraph: { type: "website", siteName: "IndiaByLocal", locale: "en", url: `/india/${p.slug}`, title: `${p.name}, ${p.state}`, description: p.blurb.slice(0, 158), images: [{ url: `/photos/${p.slug}.jpg` }] },
   };
 }
 
 export default async function PlacePage({ params }: Props) {
   const p = destinationBySlug((await params).place);
   if (!p) notFound();
-  const listings = await publishedIn(p.slug);
+  const listings = await listingsFor(p.slug);
   const samples = SITE_LIVE ? [] : toursIn(p.slug);
   const nearby = destinations.filter((x) => x.slug !== p.slug && (x.state === p.state || x.region === p.region))
     .sort((a, b) => Number(b.state === p.state) - Number(a.state === p.state))
@@ -120,6 +125,21 @@ export default async function PlacePage({ params }: Props) {
         </section>
 
         {guide && <PlanGuide place={p} guide={guide} />}
+
+        {["delhi", "agra", "jaipur"].includes(p.slug) && (
+          <aside aria-label="Planning the route" className="mt-10 rounded-2xl border border-hair bg-card p-5 md:p-6">
+            <p className="text-h4 font-semibold">Seeing Delhi, Agra and Jaipur together?</p>
+            <p className="prose-col mt-1 text-muted">Three paced plans with the drive times written down, and straight answers to what travellers worry about.</p>
+            <p className="mt-4 flex flex-wrap gap-3">
+              <Link href="/plans" className="btn">
+                See the 4, 5 and 7 day plans
+              </Link>
+              <Link href="/before-you-go" className="btn-ghost">
+                Before you go
+              </Link>
+            </p>
+          </aside>
+        )}
 
         {p.slug === "agra" && (
           <p className="mt-8">

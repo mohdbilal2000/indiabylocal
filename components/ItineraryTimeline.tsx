@@ -1,6 +1,6 @@
 "use client";
 
-import { m } from "motion/react";
+import { m, useReducedMotion } from "motion/react";
 import { useId, useState } from "react";
 import { Motion } from "@/components/Motion";
 import type { Stop, StopTip } from "@/lib/data";
@@ -29,6 +29,7 @@ const hasMore = (s: Stop) => Boolean(s.detail || s.walk || s.tips?.length);
  */
 export function ItineraryTimeline({ stops }: { stops: Stop[] }) {
   const base = useId();
+  const calm = useReducedMotion();
   const expandable = stops.map(hasMore);
   const [open, setOpen] = useState<boolean[]>(() => expandable.map((can, i) => can && i === expandable.indexOf(true)));
   const allOpen = open.every((o, i) => o || !expandable[i]);
@@ -94,7 +95,7 @@ export function ItineraryTimeline({ stops }: { stops: Stop[] }) {
                           ? { height: "auto", opacity: 1, visibility: "visible" }
                           : { height: 0, opacity: 0, transitionEnd: { visibility: "hidden" } }
                       }
-                      transition={{ duration: 0.22, ease: [0.2, 0.8, 0.2, 1] }}
+                      transition={{ duration: calm ? 0 : 0.22, ease: [0.2, 0.8, 0.2, 1] }}
                       className="overflow-hidden"
                     >
                       <div className="mt-3 rounded-xl bg-surface-alt p-4 text-small">

@@ -17,7 +17,7 @@ import { SITE_URL } from "@/lib/site";
 
 export const metadata = {
   alternates: { canonical: "/", languages: { en: "/", "x-default": "/" } },
-  openGraph: { type: "website", url: "/", images: [{ url: "/photos/agra.jpg", width: 1280, height: 842, alt: "The Taj Mahal seen across its gardens" }] },
+  openGraph: { type: "website", siteName: "IndiaByLocal", locale: "en", url: "/", title: "IndiaByLocal: private India tours with licensed local guides", description: "Private day tours in Agra, Delhi and Jaipur with a named, licence-verified local guide. One all-in price, free cancellation, no shopping stops.", images: [{ url: "/photos/agra.jpg", width: 1280, height: 842, alt: "The Taj Mahal seen across its gardens" }] },
 };
 
 const promises = [
@@ -57,7 +57,7 @@ export default function Home() {
               <li key={p.slug}>
                 <Link
                   href={`/india/${p.slug}`}
-                  className="inline-flex min-h-10 items-center rounded-full border border-white/50 bg-black/25 px-4 backdrop-blur hover:bg-white hover:text-night"
+                  className="inline-flex min-h-11 items-center rounded-full border border-white/50 bg-black/25 px-4 backdrop-blur hover:bg-white hover:text-night"
                 >
                   {p.name}
                 </Link>

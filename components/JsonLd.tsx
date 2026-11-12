@@ -4,7 +4,7 @@ export function JsonLd({ data }: { data: Record<string, unknown> }) {
   return (
     <script
       type="application/ld+json"
-      // The payload is built from our own catalogue, never from user input.
+      // Operator-entered text can reach this payload, so "<" is escaped to stop a closing script tag.
       dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }}
     />
   );

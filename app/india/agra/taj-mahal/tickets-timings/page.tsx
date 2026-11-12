@@ -10,7 +10,7 @@ const PATH = "/india/agra/taj-mahal/tickets-timings";
 export const metadata: Metadata = {
   title: "Taj Mahal tickets and timings for foreign visitors",
   description:
-    "What a foreign visitor pays at the Taj Mahal, when it opens, the day it is closed, and which gate to use. Each figure carries the date it was last checked.",
+    "What a foreign visitor pays at the Taj Mahal, when it opens, the day it is closed, and which gate to use.",
   alternates: { canonical: PATH },
 };
 

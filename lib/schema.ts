@@ -113,11 +113,14 @@ export function tourGraph(tour: Tour, city: Destination, crumbs: { name: string;
   const url = `${SITE_URL}/tours/${tour.slug}`;
   const offerId = `${url}#offer`;
   const from = fromPrice(tour);
+  const prices = tour.options.flatMap((o) => o.tiers);
   const offer: Node = {
-    "@type": "Offer",
+    "@type": "AggregateOffer",
     "@id": offerId,
     url,
-    price: from,
+    lowPrice: from,
+    highPrice: Math.max(...prices),
+    offerCount: tour.options.length,
     priceCurrency: "USD",
     seller: { "@id": ORG_ID },
     ...(SITE_LIVE ? { availability: "https://schema.org/InStock" } : {}),
@@ -132,7 +135,7 @@ export function tourGraph(tour: Tour, city: Destination, crumbs: { name: string;
       name: tour.title,
       description: tour.summary,
       url,
-      image: photos.map((p) => p.url),
+      image: photos.map((p) => (p.url.startsWith("/") ? `${SITE_URL}${p.url}` : p.url)),
       brand: { "@type": "Brand", name: SITE_NAME },
       provider: { "@id": ORG_ID },
       touristType: ["Cultural tourism", "Private tour"],

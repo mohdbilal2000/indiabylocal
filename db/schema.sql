@@ -71,7 +71,11 @@ create table if not exists booking_requests (
   email       text not null,
   phone       text,
   note        text,
+  mailbox     text,
   status      text not null default 'new' check (status in ('new', 'answered', 'closed')),
   created_at  timestamptz not null default now()
 );
+-- For databases created before the mailbox column existed.
+alter table booking_requests add column if not exists mailbox text;
 create index if not exists booking_requests_created_idx on booking_requests (created_at desc);
+create index if not exists booking_requests_mailbox_idx on booking_requests (mailbox, created_at desc);

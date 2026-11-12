@@ -31,6 +31,7 @@
   --color-on-strong: #ffffff;
   /* Text on a solid brand, verified, success or error fill. */
   --color-on-solid: #ffffff;
+  --shadow-ink: rgb(2 6 23 / 0.1);
 
   --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
   --font-sans: var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -80,6 +81,7 @@
     --color-strong: #f1f5f9;
     --color-on-strong: #0f1217;
     --color-on-solid: #04130d;
+  --shadow-ink: rgb(0 0 0 / 0.55);
   }
 }
 :root[data-theme="dark"] {
@@ -105,10 +107,12 @@
   --color-strong: #f1f5f9;
   --color-on-strong: #0f1217;
   --color-on-solid: #04130d;
+  --shadow-ink: rgb(0 0 0 / 0.55);
 }
 
 @layer base {
   html {
+    scrollbar-gutter: stable;
     color-scheme: light;
     -webkit-text-size-adjust: 100%;
   }
@@ -282,7 +286,7 @@
   .lift:focus-visible {
     transform: translateY(-2px);
     border-color: var(--color-brand);
-    box-shadow: 0 8px 24px rgb(2 6 23 / 0.1);
+    box-shadow: 0 8px 24px var(--shadow-ink);
   }
   .menu-panel:not([hidden]) {
     animation: menu-in 180ms var(--ease-enter) both;

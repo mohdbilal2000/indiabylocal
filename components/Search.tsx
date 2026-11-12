@@ -43,7 +43,7 @@ export function Search({ items }: { items: Item[] }) {
         else router.push("/destinations");
       }}
     >
-      <div className="flex gap-2 rounded-2xl bg-card p-2 shadow-xl shadow-black/20">
+      <div className="flex gap-2 rounded-2xl bg-card p-2 shadow-xl shadow-black/20 focus-within:ring-4 focus-within:ring-action">
         <label className="sr-only" htmlFor={`${listId}-in`}>
           Where in India?
         </label>
