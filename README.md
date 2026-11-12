@@ -2,7 +2,7 @@
 
 A marketplace where travellers from the US, UK, EU, Canada and Australia book licence-verified local guides and tours in India, at one all-in price.
 
-**Status: preview.** Travellers can browse 67 destinations across India. Tour operators can create an account, add tours and submit them for review. Traveller booking and payment are not built. The site tells search engines not to index it until `SITE_LIVE=1` is set.
+**Status: preview.** Travellers can browse 67 destinations across India. Tour operators can create an account, add tours and submit them for review. Travellers can send a booking request for a date and group size; no payment is taken, and requests appear in `/admin`. The site tells search engines not to index it until `SITE_LIVE=1` is set.
 
 ## Run it
 
@@ -20,9 +20,13 @@ npm run dev
 | `lib/destinations.ts` | The destination catalogue by region and state |
 | `lib/data.ts` | Six sample tours that show the listing format; hidden once the site is live |
 | `lib/auth.ts`, `lib/db.ts` | Sessions, password hashing and database access (Neon Postgres) |
-| `db/schema.sql` | Tables: operators, sessions, listings |
+| `db/schema.sql` | Tables: operators, sessions, listings, booking requests |
+| `components/BookingPanel.tsx`, `StickyBookingBar.tsx` | The two-step request panel, and its bottom sheet on phones |
+| `lib/currency.ts`, `lib/rates.ts` | Currency switcher and daily exchange rates |
+| `lib/schema.ts`, `lib/entities.ts`, `lib/answers.ts` | Structured data, entity links and answer blocks for search and AI assistants |
 | `public/photos/`, `lib/photos.json` | Destination photographs from Wikimedia Commons and their credits, shown at `/credits` |
 | `scripts/fetch_photos.py` | Re-fetches photographs listed in `scripts/places.json` |
+| `scripts/blur.mjs` | Rebuilds the blurred image previews in `lib/blur.json`; run it after adding photographs |
 
 ## Reviewing operators
 
@@ -33,6 +37,10 @@ npm run admin -- grant you@example.com
 ```
 
 From `/admin` you verify or suspend operators, publish submitted tours, send a tour back with a reason the operator sees, and take a live tour down. Every action is recorded. A tour is shown to travellers only when it is published and its operator is verified.
+
+## Settings
+
+Set `NEXT_PUBLIC_WHATSAPP_NUMBER` (digits with country code) in Vercel to show the WhatsApp button in the booking panel. It stays hidden until then.
 
 ## Going live
 
@@ -55,6 +63,7 @@ The documents in `docs/` were produced from 13 parallel research tracks on 11 No
 | [docs/08-experience.md](docs/08-experience.md) | The life of the product: moments, signature interactions, voice, the Promise, safety, supplier experience |
 | [docs/09-inventory.md](docs/09-inventory.md) | Every brick: components, screens, messages, jobs, admin functions |
 | [docs/10-markets.md](docs/10-markets.md) | Market-by-market entry, languages, page templates, AI-answer operations |
+| [docs/11-rebuild-audit.md](docs/11-rebuild-audit.md) | What the 12 Nov rebuild added, what was left out and why, and the gaps against the large platforms |
 
 A clickable prototype of the tour page is in `docs/prototype/day-unfolds.html`. It shows the direction with example content; it is not a design system.
 

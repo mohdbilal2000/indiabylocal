@@ -30,7 +30,7 @@ export default function ForOperators() {
       <section className="relative isolate">
         <div className="absolute inset-0 -z-10">
           <Photo name="jaipur" alt="" sizes="100vw" priority />
-          <div className="absolute inset-0 bg-brand/85" />
+          <div className="absolute inset-0 bg-night/85" />
         </div>
         <div className="shell py-16 text-white md:py-24">
           <p className="text-small font-semibold uppercase tracking-[0.18em] text-action">For tour operators and guides</p>

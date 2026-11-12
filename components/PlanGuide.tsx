@@ -1,3 +1,4 @@
+import { CITY_ANSWERS } from "@/lib/answers";
 import type { Destination } from "@/lib/destinations";
 import { GUIDES_REVIEWED, type Guide } from "@/lib/guides";
 
@@ -31,6 +32,7 @@ export function planRows(place: Destination, guide: Guide) {
     { q: `How many days do you need in ${place.name}?`, a: guide.days },
     { q: `How do you get to ${place.name}?`, a: guide.reach },
     { q: `Is a local guide worth it in ${place.name}?`, a: guide.local },
-    { q: `What should you know before you go?`, a: guide.know },
+    { q: `What should you know before you go to ${place.name}?`, a: guide.know },
+    ...(CITY_ANSWERS[place.slug] ?? []),
   ];
 }

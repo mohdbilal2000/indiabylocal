@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { DestinationCard } from "@/components/DestinationCard";
-import { JsonLd, faqLd } from "@/components/JsonLd";
+import { JsonLd } from "@/components/JsonLd";
 import { Photo } from "@/components/Photo";
 import { Search } from "@/components/Search";
 import { Today } from "@/components/Today";
@@ -9,9 +9,13 @@ import { tours } from "@/lib/data";
 import { destinationBySlug, destinations, inRegion, popular, regions, states } from "@/lib/destinations";
 import { homeFaq } from "@/lib/faq";
 import { steps } from "@/lib/how";
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
+import { faqNode, graph, organizationNode, websiteNode } from "@/lib/schema";
+import { SITE_URL } from "@/lib/site";
 
-export const metadata = { alternates: { canonical: "/" } };
+export const metadata = {
+  alternates: { canonical: "/", languages: { en: "/", "x-default": "/" } },
+  openGraph: { type: "website", url: "/", images: [{ url: "/photos/agra.jpg", width: 1280, height: 842, alt: "The Taj Mahal seen across its gardens" }] },
+};
 
 const promises = [
   { title: "Licence on the profile", text: "Each guide's licence number and issuing authority are shown, and checked by us." },
@@ -26,10 +30,7 @@ export default function Home() {
 
   return (
     <>
-      <JsonLd
-        data={{ "@context": "https://schema.org", "@type": "Organization", name: SITE_NAME, url: SITE_URL, description: SITE_DESCRIPTION }}
-      />
-      <JsonLd data={faqLd(homeFaq)} />
+      <JsonLd data={graph(organizationNode(), websiteNode(), faqNode(SITE_URL, homeFaq))} />
 
       <section className="relative isolate">
         <div className="absolute inset-0 -z-10">
@@ -182,7 +183,7 @@ export default function Home() {
         <div className="relative isolate overflow-hidden rounded-3xl">
           <div className="absolute inset-0 -z-10">
             <Photo name="jodhpur" alt="" sizes="100vw" />
-            <div className="absolute inset-0 bg-brand/85" />
+            <div className="absolute inset-0 bg-night/85" />
           </div>
           <div className="grid gap-8 p-8 text-white md:p-14 lg:grid-cols-[1.3fr_1fr] lg:items-center">
             <div>

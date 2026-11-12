@@ -1,4 +1,5 @@
 import Image from "next/image";
+import blur from "@/lib/blur.json";
 import credits from "@/lib/photos.json";
 
 type Credit = { w: number; h: number; subject: string; artist: string; license: string; source: string };
@@ -29,6 +30,8 @@ export function Photo({
       fill
       sizes={sizes}
       priority={priority}
+      placeholder={name in blur ? "blur" : "empty"}
+      blurDataURL={(blur as Record<string, string>)[name]}
       className={`object-cover ${className}`}
     />
   );

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Crumbs } from "@/components/Chrome";
 import { DestinationCard } from "@/components/DestinationCard";
-import { JsonLd, breadcrumbLd, faqLd } from "@/components/JsonLd";
+import { JsonLd } from "@/components/JsonLd";
 import { Photo } from "@/components/Photo";
 import { PlanGuide, planRows } from "@/components/PlanGuide";
 import { ListingCard, TourCard } from "@/components/TourCard";
@@ -11,7 +11,8 @@ import { toursIn } from "@/lib/data";
 import { publishedIn } from "@/lib/db";
 import { destinationBySlug, destinations, slugify } from "@/lib/destinations";
 import { guideFor } from "@/lib/guides";
-import { SITE_LIVE } from "@/lib/site";
+import { breadcrumbNode, destinationNode, faqNode, graph, organizationNode } from "@/lib/schema";
+import { SITE_LIVE, SITE_URL } from "@/lib/site";
 
 export const dynamicParams = false;
 /** Operator listings come from the database; pages refresh every five minutes and on each publish. */
@@ -29,7 +30,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${p.name} tours with local guides: ${p.known.slice(0, 2).join(", ")}`,
     description: `${p.blurb} Best time to visit: ${p.best}.`.slice(0, 158),
-    alternates: { canonical: `/india/${p.slug}` },
+    alternates: { canonical: `/india/${p.slug}`, languages: { en: `/india/${p.slug}`, "x-default": `/india/${p.slug}` } },
+    openGraph: { type: "website", url: `/india/${p.slug}`, images: [{ url: `/photos/${p.slug}.jpg` }] },
   };
 }
 
@@ -51,8 +53,14 @@ export default async function PlacePage({ params }: Props) {
 
   return (
     <>
-      <JsonLd data={breadcrumbLd(crumbs)} />
-      {guide && <JsonLd data={faqLd(planRows(p, guide))} />}
+      <JsonLd
+        data={graph(
+          organizationNode(),
+          breadcrumbNode(`${SITE_URL}/india/${p.slug}`, crumbs),
+          destinationNode(p),
+          guide && faqNode(`${SITE_URL}/india/${p.slug}`, planRows(p, guide)),
+        )}
+      />
       <section className="relative isolate">
         <div className="absolute inset-0 -z-10">
           <Photo name={p.slug} sizes="100vw" priority />
@@ -104,8 +112,8 @@ export default async function PlacePage({ params }: Props) {
               {listings.map((l) => (
                 <ListingCard key={l.id} listing={l} />
               ))}
-              {samples.map((t) => (
-                <TourCard key={t.slug} tour={t} />
+              {samples.map((t, i) => (
+                <TourCard key={t.slug} tour={t} priority={listings.length === 0 && i === 0} />
               ))}
             </div>
           )}

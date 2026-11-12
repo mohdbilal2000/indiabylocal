@@ -64,3 +64,14 @@ export async function sendBackListing(form: FormData) {
   revalidatePath(`/india/${rows[0].destination}`);
   revalidatePath("/admin");
 }
+
+export async function setRequestStatus(form: FormData) {
+  const admin = await requireAdmin();
+  const id = idFrom(form);
+  const status = String(form.get("status") ?? "");
+  if (!id || !["answered", "closed"].includes(status)) return;
+  const rows = await db()`update booking_requests set status = ${status} where id = ${id} returning code`;
+  if (!rows.length) return;
+  await record(admin.id, `request:${status}`, rows[0].code as string);
+  revalidatePath("/admin");
+}

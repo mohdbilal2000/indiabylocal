@@ -1,11 +1,16 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Inter } from "next/font/google";
 import { Footer, Header, PreviewBanner } from "@/components/Chrome";
+import { CurrencyProvider } from "@/components/Currency";
+import { getRates } from "@/lib/rates";
 import { SITE_DESCRIPTION, SITE_LIVE, SITE_NAME, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const fraunces = Fraunces({ subsets: ["latin"], variable: "--font-fraunces", display: "swap" });
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+
+/** Exchange rates are refreshed twice a day; pages stay cached in between. */
+export const revalidate = 43200;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -23,12 +28,13 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#fbf8f2" },
-    { media: "(prefers-color-scheme: dark)", color: "#14131a" },
+    { media: "(prefers-color-scheme: light)", color: "#faf9f7" },
+    { media: "(prefers-color-scheme: dark)", color: "#020617" },
   ],
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const rates = await getRates();
   return (
     <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
       <body>
@@ -38,10 +44,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to content
         </a>
-        <PreviewBanner />
-        <Header />
-        <main id="main">{children}</main>
-        <Footer />
+        <CurrencyProvider rates={rates}>
+          <PreviewBanner />
+          <Header />
+          <main id="main">{children}</main>
+          <Footer />
+        </CurrencyProvider>
       </body>
     </html>
   );

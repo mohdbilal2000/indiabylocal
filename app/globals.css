@@ -1,23 +1,31 @@
 @import "tailwindcss";
 
-/* Tokens from docs/01-product-ux.md, "Neel and Genda". */
+/* Tokens: warm heritage accents on trust neutrals. Every text pairing below meets WCAG AA. */
 @theme {
-  --color-brand: #2b2f77;
-  --color-action: #f2a900;
-  --color-on-action: #1d1b22;
-  --color-ink: #1d1b22;
-  --color-muted: #5c5866;
-  --color-surface: #fbf8f2;
-  --color-surface-alt: #f2ece0;
+  /* Terracotta. "brand" is the darker ink used for text, links and focus (6:1 on white);
+     "terracotta" is the brighter fill for large shapes only. */
+  --color-brand: #a8431f;
+  --color-terracotta: #c85a32;
+  /* Saffron buttons always carry dark text (6.5:1). White on saffron is never used. */
+  --color-action: #e07a1e;
+  --color-on-action: #020617;
+  --color-ink: #020617;
+  --color-night: #020617;
+  --color-night-soft: #1e293b;
+  --color-muted: #475569;
+  --color-surface: #faf9f7;
+  --color-surface-alt: #f2eee7;
   --color-card: #ffffff;
-  --color-line: #8a8594;
-  --color-hair: #e3dccd;
-  --color-success: #186a3b;
-  --color-warning: #8a5a00;
-  --color-error: #b3261e;
-  /* Accents from docs/08-experience.md: rose for celebration, teal only for what we have verified. */
+  --color-line: #748297;
+  --color-hair: #e5e0d6;
+  --color-success: #047857;
+  --color-warning: #92400e;
+  --color-error: #b91c1c;
   --color-celebrate: #c2255c;
-  --color-verified: #0f766e;
+  /* Emerald marks only what we have checked. 700 for text, 600 for fills behind large icons. */
+  --color-verified: #047857;
+  --color-verified-fill: #059669;
+  --color-verified-soft: #ecfdf5;
 
   --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
   --font-sans: var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -111,6 +119,10 @@
   .btn:active {
     transform: translateY(1px);
   }
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
   .btn-ghost {
     display: inline-flex;
     align-items: center;
@@ -200,7 +212,7 @@
     height: 8px;
     border-radius: 50%;
     background: var(--color-action);
-    box-shadow: 0 0 0 0 rgb(242 169 0 / 0.7);
+    box-shadow: 0 0 0 0 rgb(224 122 30 / 0.7);
     animation: today-pulse 2.4s ease-out 3;
   }
 }
@@ -213,7 +225,7 @@
   .lift:focus-visible {
     transform: translateY(-2px);
     border-color: var(--color-brand);
-    box-shadow: 0 8px 24px rgb(43 47 119 / 0.1);
+    box-shadow: 0 8px 24px rgb(2 6 23 / 0.1);
   }
   .menu-panel:not([hidden]) {
     animation: menu-in 180ms var(--ease-enter) both;
@@ -226,6 +238,22 @@
       animation-timeline: view();
       animation-range: entry 0% entry 45%;
     }
+  }
+}
+dialog.sheet::backdrop {
+  background: rgb(2 6 23 / 0.55);
+  animation: backdrop-in 200ms ease-out both;
+}
+@keyframes backdrop-in {
+  from { opacity: 0; }
+}
+@keyframes heart-pop {
+  40% { transform: scale(1.35); }
+  to { transform: scale(1); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .heart-pop {
+    animation: heart-pop 320ms var(--ease-enter);
   }
 }
 @keyframes reveal-in {
@@ -249,7 +277,7 @@
   to { opacity: 1; transform: scale(1); }
 }
 @keyframes today-pulse {
-  to { box-shadow: 0 0 0 10px rgb(242 169 0 / 0); }
+  to { box-shadow: 0 0 0 10px rgb(224 122 30 / 0); }
 }
 
 @media (prefers-reduced-motion: reduce) {

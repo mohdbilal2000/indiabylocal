@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { publishListing, sendBackListing, setOperatorStatus } from "@/app/admin/actions";
+import { publishListing, sendBackListing, setOperatorStatus, setRequestStatus } from "@/app/admin/actions";
 import { requireAdmin } from "@/lib/auth";
 import { type Listing, type Operator, db, inr, lines } from "@/lib/db";
 import { destinationBySlug } from "@/lib/destinations";
@@ -16,6 +16,23 @@ type Row = Listing & {
   operator_status: Operator["status"];
 };
 type Op = Operator & { created_at: string; listings: number };
+type Req = {
+  id: string;
+  code: string;
+  tour_ref: string;
+  title: string;
+  option_name: string;
+  tour_date: string;
+  people: number;
+  total: number;
+  currency: string;
+  name: string;
+  email: string;
+  phone: string | null;
+  note: string | null;
+  status: "new" | "answered" | "closed";
+  created_at: string;
+};
 
 const when = (d: string) =>
   new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit", timeZone: "Asia/Kolkata" }).format(new Date(d));
@@ -56,6 +73,11 @@ export default async function Admin() {
         order by a.created_at desc limit 20`,
   ]);
   const pendingOps = operators.filter((o) => o.status === "pending").length;
+  // The table is created by the first traveller request, so it may not exist yet.
+  const requests = (await sql`
+    select id, code, tour_ref, title, option_name, tour_date::text, people, total, currency, name, email, phone, note, status, created_at
+    from booking_requests order by (status = 'new') desc, created_at desc limit 100`.catch(() => [])) as Req[];
+  const newRequests = requests.filter((r) => r.status === "new").length;
 
   return (
     <div className="shell py-10">
@@ -69,8 +91,9 @@ export default async function Admin() {
         </Link>
       </div>
 
-      <dl className="mt-6 grid grid-cols-3 gap-3 text-center">
+      <dl className="mt-6 grid grid-cols-2 gap-3 text-center sm:grid-cols-4">
         {[
+          ["Traveller requests to answer", newRequests],
           ["Tours to review", queue.length],
           ["Operators to verify", pendingOps],
           ["Tours live", live.length],
@@ -152,6 +175,59 @@ export default async function Admin() {
                     </button>
                   </form>
                 </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+
+      <section aria-labelledby="r-h" className="pt-14">
+        <h2 id="r-h" className="text-h3">
+          Traveller requests
+        </h2>
+        <p className="mt-1 text-small text-muted">
+          Sent from the booking panel. Nothing has been charged. Reply by email, then mark the request answered.
+        </p>
+        {requests.length === 0 ? (
+          <p className="mt-4 rounded-2xl border border-dashed border-line p-8 text-center text-muted">
+            No traveller has sent a request yet.
+          </p>
+        ) : (
+          <ul className="mt-4 divide-y divide-hair rounded-2xl border border-hair bg-card">
+            {requests.map((r) => (
+              <li key={r.id} className="flex flex-wrap items-center gap-x-6 gap-y-2 p-4">
+                <div className="min-w-0 flex-1 basis-72">
+                  <p className="font-semibold">
+                    {r.title}
+                    {r.tour_ref.startsWith("t:") && <span className="ml-2 text-caption font-normal text-muted">(sample tour)</span>}
+                  </p>
+                  <p className="nums text-small text-muted">
+                    {r.code} · {r.tour_date} · {r.people} {r.people === 1 ? "traveller" : "travellers"} · {r.option_name} ·{" "}
+                    {r.currency === "INR" ? inr(r.total) : `$${r.total}`} · sent {when(r.created_at)}
+                  </p>
+                  <p className="text-small">
+                    {r.name} ·{" "}
+                    <a className="link" href={`mailto:${r.email}?subject=${encodeURIComponent(`Your request ${r.code}: ${r.title}`)}`}>
+                      {r.email}
+                    </a>
+                    {r.phone && <> · {r.phone}</>}
+                  </p>
+                  {r.note && <p className="mt-1 text-small text-muted">“{r.note}”</p>}
+                </div>
+                <span
+                  className={`rounded-full px-3 py-1 text-caption font-semibold ${r.status === "new" ? "bg-action text-on-action" : "bg-surface-alt"}`}
+                >
+                  {r.status}
+                </span>
+                {r.status !== "closed" && (
+                  <form action={setRequestStatus}>
+                    <input type="hidden" name="id" value={r.id} />
+                    <input type="hidden" name="status" value={r.status === "new" ? "answered" : "closed"} />
+                    <button type="submit" className="btn-ghost min-h-11 px-4 text-small">
+                      {r.status === "new" ? "Mark answered" : "Close"}
+                    </button>
+                  </form>
+                )}
               </li>
             ))}
           </ul>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CurrencySwitcher } from "@/components/Currency";
 import { MobileMenu } from "@/components/MobileMenu";
 import { regions } from "@/lib/destinations";
 import { SITE_LIVE, SITE_NAME } from "@/lib/site";
@@ -6,7 +7,7 @@ import { SITE_LIVE, SITE_NAME } from "@/lib/site";
 export function PreviewBanner() {
   if (SITE_LIVE) return null;
   return (
-    <p className="bg-brand px-4 py-2 text-center text-caption text-white">
+    <p className="bg-night px-4 py-2 text-center text-caption text-white">
       Preview. Tours marked Sample are placeholders, and traveller booking is not open yet. Operators can sign up now.
     </p>
   );
@@ -14,8 +15,8 @@ export function PreviewBanner() {
 
 export function Logo({ light = false }: { light?: boolean }) {
   return (
-    <Link href="/" className={`min-w-0 truncate font-display text-h4 font-semibold tracking-tight no-underline ${light ? "text-white" : "text-brand"}`}>
-      India<span className="text-action">By</span>Local
+    <Link href="/" className={`min-w-0 truncate font-display text-h4 font-semibold tracking-tight no-underline ${light ? "text-white" : "text-ink"}`}>
+      India<span className={light ? "text-action" : "text-terracotta"}>By</span>Local
     </Link>
   );
 }
@@ -24,6 +25,7 @@ const MENU = [
   { href: "/destinations", label: "Destinations", note: "All 67 places, by region" },
   { href: "/guides", label: "City guides", note: "When to go, how long, what to see" },
   { href: "/how-it-works", label: "How it works", note: "Booking, price and our Promise" },
+  { href: "/saved", label: "Saved tours", note: "Tours you marked with a heart" },
   { href: "/for-operators", label: "For tour operators", note: "List your tours" },
   { href: "/operators/login", label: "Operator log in" },
 ];
@@ -47,11 +49,20 @@ export function Header() {
           <Link href="/for-operators" className={`${item} ml-auto`}>
             For tour operators
           </Link>
+          <Link href="/saved" className={item}>
+            Saved
+          </Link>
+          <CurrencySwitcher className="ml-1" />
           <Link href="/destinations" className="btn ml-2 min-h-11 whitespace-nowrap px-4 text-small">
             Find a tour
           </Link>
         </nav>
-        <MobileMenu links={MENU} />
+        <MobileMenu links={MENU}>
+          <div className="flex min-h-14 items-center justify-between gap-4 py-2">
+            <span className="font-semibold">Show prices in</span>
+            <CurrencySwitcher />
+          </div>
+        </MobileMenu>
       </div>
     </header>
   );
@@ -60,7 +71,7 @@ export function Header() {
 export function Footer() {
   const a = "inline-flex min-h-11 items-center opacity-85 hover:underline hover:opacity-100";
   return (
-    <footer className="mt-24 bg-brand text-white">
+    <footer className="mt-24 bg-night text-white">
       <div className="shell grid gap-10 py-14 text-small sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div>
           <Logo light />
@@ -106,6 +117,11 @@ export function Footer() {
             <li>
               <Link className={a} href="/india/agra/taj-mahal/tickets-timings">
                 Taj Mahal tickets and timings
+              </Link>
+            </li>
+            <li>
+              <Link className={a} href="/saved">
+                Saved tours
               </Link>
             </li>
             <li>

@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 export type MenuLink = { href: string; label: string; note?: string };
 
 /** Phone and tablet menu: one clearly labelled button that opens a short list of large links. */
-export function MobileMenu({ links }: { links: MenuLink[] }) {
+export function MobileMenu({ links, children }: { links: MenuLink[]; children?: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const wrap = useRef<HTMLDivElement>(null);
@@ -57,6 +57,7 @@ export function MobileMenu({ links }: { links: MenuLink[] }) {
               </Link>
             </li>
           ))}
+          {children && <li>{children}</li>}
         </ul>
       </nav>
     </div>
