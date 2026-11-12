@@ -1,10 +1,10 @@
 # Growth, search and AI-answer visibility
 
-Keyword difficulty below is an estimate; the keyword-data tool was unavailable during research. Timelines are judgement, not measurement. See [06-evidence.md](06-evidence.md).
+Market-by-market entry, the language roadmap, page templates and the monthly AI-answer procedure are in [10-markets.md](10-markets.md). Keyword difficulty below is an estimate; the keyword-data tool was unavailable during research. Timelines are judgement, not measurement. See [06-evidence.md](06-evidence.md).
 
 ## 1. What is realistic
 
-- Only 1.74% of new pages reach the top 10 within a year; the average first-ranked page is five years old.
+- Only 1.74% of new pages reach the top 10 within a year; for English pages with real content the same study gives 6.11%. The average first-ranked page is five years old.
 - AI summaries cut clicks on the queries they appear for by 38–61%, depending on the study. Plan around citations and bookings, not sessions.
 - Spam updates in June and August 2026 hit scaled, template-assembled pages, including location pages.
 
@@ -49,6 +49,7 @@ Keyword difficulty below is an estimate; the keyword-data tool was unavailable d
 - Brand mentions across the web correlate with AI visibility at about 0.66–0.71, against about 0.3 for backlink strength; YouTube mentions are highest. Correlation only.
 - Original statistics, quotations and cited sources lifted visibility by up to about 40% in one lab study, not independently replicated.
 - Google says optimising for AI answers is still ordinary search optimisation.
+- Google's AI Mode now runs in 200+ countries and 35+ languages, and reached France in July 2026.
 
 **What we do**
 
@@ -65,7 +66,7 @@ Keyword difficulty below is an estimate; the keyword-data tool was unavailable d
 
 **Measuring cheaply:** Bing Webmaster's AI report; a fixed 30-prompt panel run monthly across the main assistants; referrers; crawler hits in logs.
 
-**Agents booking directly:** the large platforms have assistant apps that are invoked unreliably, and agent-checkout protocols are live for retail, not tours. We build a clean availability and price interface now and add an agent-facing server later. Early-mover benefit is speculative.
+**Agents booking directly:** OpenAI withdrew its in-chat checkout in March 2026; booking inside assistants now runs through partner apps (Expedia, Booking, Viator), which one test found are invoked unreliably. We build a clean availability and price interface now and add an agent-facing server later. Early-mover benefit is speculative.
 
 ## 5. Content engine
 
@@ -114,37 +115,37 @@ Customer acquisition costs are assumptions.
 |---|---|---|
 | 1 | Search plus a free planning tool (itinerary, closures, arrival-card checklist) with email capture | $5–15; 6–9 months to rank |
 | 2 | Reddit, Tripadvisor forums, Facebook groups, as the named founder, answers first | Near zero |
-| 3 | Homestays and boutique hotels in Agra, Delhi, Jaipur: QR code and a 10% referral | About $10–15 |
-| 4 | Two or three products listed on the large platforms, for volume and reviews | 20–30% commission; signature products stay direct |
+| 3 | Homestays and boutique hotels in Agra, Delhi, Jaipur: QR code and a 5% referral | About $7 on a $140 booking; 10% would take most of the $16 we keep |
+| 4 | Guides keep their own listings on the large platforms | We do not resell there: at 20–30% commission we would lose money |
 | 5 | YouTube and short videos per monument; small creators paid in tours | Also the strongest AI-citation source |
 | 6 | Google Things to do free listings | Needs instant confirmation and accurate prices |
 | 7 | Diaspora WhatsApp groups and associations | — |
-| 8 | Travel advisers at 10–12% | Later |
+| 8 | Travel advisers | Only for multi-day products later; 10–12% exceeds what a day tour leaves |
 | 9 | Paid search | Multi-day only; exact-match long-tail at $15–30 a day as a bridge |
 
 Reviews are requested on Trustpilot and Google from the first booking, with no incentive.
 
-Google's operator booking module ties to the operator's own business profile, so each guide gets a profile with a booking link to us.
+Google's operator booking module ties to the operator's own business profile. Guides who are genuine businesses own their own profiles; we do not create profiles for them.
 
 ## 7. Funnel model
 
-Assumptions: $140 average booking; conversion rising from 0.5% to 0.9%.
+Built from bookings by channel, not from a traffic guess. Assumption: $140 average booking. Month 1 is February 2027.
 
-| Months | Sessions | Bookings | Booking value |
+| Period | Where bookings come from | Bookings | Booking value |
 |---|---|---|---|
-| 1–3 | 6k | 30 | $4k |
-| 4–6 | 20k | 140 | $20k |
-| 7–12 (peak) | 90k | 810 | $113k |
-| **Year 1** | **116k** | **about 980** | **about $137k** |
+| Feb–Apr 2027 (pilot, end of season) | Founder's network, forums, hotel QR codes | 30 | $4k |
+| May–Jul (off-season) | The same, plus first search traffic | 40 | $6k |
+| Aug 2027–Jan 2028 (peak) | Search and AI answers, hotels, forums, repeat and referral | 600 | $84k |
+| **Year 1** | | **about 670** | **about $94k** |
 
-At the 11.6% contribution in [03](03-payments-tax-legal.md), that is roughly $16k before marketing and support. A downside case is about 40% of this. This is a planning model, not a forecast.
+At the 11.5% contribution in [03](03-payments-tax-legal.md), that is roughly $11k before marketing and support. A downside case is about 40% of this. This is a planning model, not a forecast, and it is to be rebuilt from real channel data after the pilot.
 
 ## 8. Calendar
 
 | When | What |
 |---|---|
 | Nov–Dec 2026 | Name clearance, incorporation, Phases 0–1 |
-| By Feb 2027 | Soft launch: 15–25 Agra and Delhi products; 30–50 reviews before the season ends in March |
+| Feb–Mar 2027 | Pilot: 5–10 Agra guides, payment by gateway link, 15+ reviews before the season ends |
 | Apr–Aug 2027 | Off-season: 50+ pages, Jaipur and beyond, planning tool, hotel partners |
 | By 1 Jul 2027 | Fully live for the October 2027 – March 2028 season |
 
@@ -162,4 +163,4 @@ At the 11.6% contribution in [03](03-payments-tax-legal.md), that is roughly $16
 | Device | About 2 in 5 operator online bookings are on mobile |
 | Reseller prices | Delhi–Taj private day $73–127 per person; guided Taj entry $22–47 |
 
-German, French, Italian, Dutch and Spanish arrival figures were not found.
+European arrivals (2024): Germany 256k, France 207k; estimates for the Netherlands about 123k, Italy about 116k, Spain about 73k.

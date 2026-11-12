@@ -1,0 +1,267 @@
+<title>The Day Unfolds</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout: one phone-width tour page in the centre column; a quiet notes rail beside it on wide screens, below it on phones. */
+:root{
+  --indigo:#2B2F77; --marigold:#F2A900; --rose:#C2255C; --teal:#0F766E;
+  --ink:#1D1B22; --muted:#5C5866; --bg:#FBF8F2; --alt:#F2ECE0; --card:#FFFFFF; --line:#D9D2C4; --border:#8A8594;
+  --dawn1:#2B2F77; --dawn2:#8E4A7A; --dawn3:#F2A900; --on-dawn:#FFFFFF; --on-action:#1D1B22;
+  --display:"Fraunces",Georgia,"Times New Roman",serif; --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --indigo:#A9B0FF; --rose:#F08AAE; --teal:#5FD0C5; --ink:#ECE9F2; --muted:#A9A5B5; --bg:#14131A; --alt:#1B1A23; --card:#1E1D27; --line:#34323F; --border:#6F6B7C;
+  --dawn1:#1B1E55; --dawn2:#6E3660; --dawn3:#C98A00; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --indigo:#A9B0FF; --rose:#F08AAE; --teal:#5FD0C5; --ink:#ECE9F2; --muted:#A9A5B5; --bg:#14131A; --alt:#1B1A23; --card:#1E1D27; --line:#34323F; --border:#6F6B7C;
+  --dawn1:#1B1E55; --dawn2:#6E3660; --dawn3:#C98A00; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55}
+.wrap{display:grid;grid-template-columns:minmax(0,430px) minmax(0,340px);gap:48px;justify-content:center;align-items:start;
+  padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+@media (max-width:860px){.wrap{grid-template-columns:minmax(0,430px);gap:32px}}
+h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.15;margin:0;text-wrap:balance}
+p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--indigo);outline-offset:2px}
+.page{display:flex;flex-direction:column;gap:22px;min-width:0}
+.proto{font-size:13px;color:var(--muted);border:1px dashed var(--border);border-radius:8px;padding:8px 12px}
+.today{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.today b{color:var(--ink);font-weight:600}
+.hero{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:4/3;max-width:100%;
+  background:linear-gradient(180deg,var(--dawn1) 0%,var(--dawn2) 55%,var(--dawn3) 100%)}
+.hero svg{position:absolute;inset:0;width:100%;height:100%}
+.hero .cap{position:absolute;left:16px;right:16px;bottom:14px;color:var(--on-dawn);font-size:13px;display:flex;justify-content:space-between;gap:8px}
+.title{display:flex;flex-direction:column;gap:8px}
+.title h1{font-size:clamp(1.75rem,1.3rem + 2vw,2.25rem)}
+.meta{color:var(--muted);font-size:15px}
+.checked{color:var(--teal);font-weight:600;font-size:14px;display:inline-flex;gap:6px;align-items:center}
+.checked svg{width:16px;height:16px;flex:none}
+section{display:flex;flex-direction:column;gap:12px}
+h2{font-size:1.375rem}
+.arc svg{width:100%;height:auto;display:block}
+.arc path{fill:none;stroke:var(--indigo);stroke-width:2.5;stroke-linecap:round;stroke-dasharray:520;stroke-dashoffset:0}
+.arc.draw path{animation:draw .6s cubic-bezier(.2,.8,.2,1) both}
+.arc circle{fill:var(--marigold);stroke:var(--ink);stroke-width:1.2}
+.arc.draw circle{animation:pop .25s ease-out both}
+.arc.draw circle:nth-of-type(2){animation-delay:.2s}.arc.draw circle:nth-of-type(3){animation-delay:.28s}
+.arc.draw circle:nth-of-type(4){animation-delay:.36s}.arc.draw circle:nth-of-type(5){animation-delay:.44s}
+@keyframes draw{from{stroke-dashoffset:520}to{stroke-dashoffset:0}}
+@keyframes pop{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
+.arc circle{transform-box:fill-box;transform-origin:center}
+.stops{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:15px}
+.stops li{display:grid;grid-template-columns:52px minmax(0,1fr);gap:10px}
+.stops time{font-variant-numeric:tabular-nums;color:var(--muted)}
+.quiet{background:none;border:0;padding:0;color:var(--indigo);font-weight:600;text-decoration:underline;text-underline-offset:3px;align-self:flex-start}
+.guide{display:grid;grid-template-columns:64px minmax(0,1fr);gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px}
+.face{width:64px;height:64px;border-radius:50%;background:var(--alt);display:grid;place-items:center;font-family:var(--display);font-size:26px;color:var(--indigo);border:2px solid var(--teal)}
+.guide .who{display:flex;flex-direction:column;gap:2px;min-width:0}
+.hello{grid-column:1/-1;display:flex;flex-direction:column;gap:8px}
+.play{display:inline-flex;align-items:center;gap:10px;background:var(--alt);border:1px solid var(--line);border-radius:999px;padding:10px 16px;min-height:48px;align-self:flex-start}
+.bars{display:inline-flex;gap:3px;align-items:flex-end;height:18px}
+.bars i{width:3px;height:6px;background:var(--indigo);border-radius:2px}
+.playing .bars i{animation:bar .7s ease-in-out infinite alternate}
+.playing .bars i:nth-child(2){animation-delay:.1s}.playing .bars i:nth-child(3){animation-delay:.25s}.playing .bars i:nth-child(4){animation-delay:.4s}
+@keyframes bar{to{height:18px}}
+.caption{font-size:15px;color:var(--muted);min-height:1.55em}
+.dates{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.date{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 4px;min-height:60px;display:flex;flex-direction:column;align-items:center;gap:2px;font-variant-numeric:tabular-nums}
+.date small{color:var(--muted);font-size:12px}
+.date[aria-pressed="true"]{border-color:var(--indigo);box-shadow:inset 0 0 0 1px var(--indigo);background:var(--alt)}
+.date:disabled{opacity:.55;cursor:not-allowed}
+.sun{font-size:15px}
+.sun b{font-weight:600}
+.promise{display:grid;grid-template-columns:56px minmax(0,1fr);gap:14px;align-items:center;border:1.5px solid var(--teal);border-radius:16px;padding:14px;background:var(--card)}
+.seal{width:56px;height:56px}
+.seal .ring{fill:none;stroke:var(--teal);stroke-width:2;stroke-dasharray:160;stroke-dashoffset:0}
+.seal.draw .ring{animation:ring .4s ease-out both}
+@keyframes ring{from{stroke-dashoffset:160}to{stroke-dashoffset:0}}
+.seal .tick{fill:none;stroke:var(--teal);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.promise p{font-size:15px}
+.promise details{grid-column:1/-1;font-size:14px;color:var(--muted)}
+.promise summary{cursor:pointer;color:var(--teal);font-weight:600;min-height:32px}
+.promise ul{margin:6px 0 0;padding-left:18px}
+.paybar{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+.price{font-size:1.375rem;font-weight:600;font-variant-numeric:tabular-nums}
+.price small{display:block;font-size:13px;font-weight:400;color:var(--muted)}
+.pay{background:var(--marigold);color:var(--on-action);border:1px solid var(--ink);border-radius:999px;padding:12px 26px;min-height:48px;font-weight:600;transition:transform .12s ease-out}
+.pay:active{transform:scale(.97)}
+.done{position:relative;border-radius:16px;background:var(--alt);padding:26px 18px;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;overflow:hidden}
+.done canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.stamp{width:150px;height:150px;transform:rotate(-3deg)}
+.done.go .stamp{animation:stamp .32s cubic-bezier(.2,.9,.3,1.2) both}
+@keyframes stamp{from{transform:scale(1.4) rotate(-8deg);opacity:0}to{transform:scale(1) rotate(-3deg);opacity:1}}
+.stamp *{stroke:var(--rose);fill:none}
+.stamp text{fill:var(--rose);stroke:none;font-family:var(--display);font-weight:600;letter-spacing:.12em}
+.done h2{font-size:1.5rem}
+.notes{display:flex;flex-direction:column;gap:18px;min-width:0}
+.notes h2{font-size:1.25rem}
+.notes ol{margin:0;padding-left:20px;display:grid;gap:12px;font-size:15px}
+.notes li b{display:block;font-weight:600}
+.notes li span{color:var(--muted)}
+.notes p{font-size:14px;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){.arc.draw path,.arc.draw circle,.seal.draw .ring,.done.go .stamp,.playing .bars i{animation:none}}
+</style>
+
+<div class="wrap">
+  <main class="page">
+    <p class="proto">Prototype. Ravi, the times and the price are examples, not real listings.</p>
+
+    <div class="today" aria-label="Today in Agra">
+      <span><b>Agra today</b></span><span>Sunrise <b>6:41</b></span><span>Gates open <b>6:00</b></span><span>Clear, 14°C at dawn</span><span>Closed Fridays</span>
+    </div>
+
+    <div class="hero" role="img" aria-label="Illustration: dawn sky behind a jaali lattice and a rising sun">
+      <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs><pattern id="jaali" width="40" height="40" patternUnits="userSpaceOnUse">
+          <path d="M20 2 L38 20 L20 38 L2 20 Z M20 12 L28 20 L20 28 L12 20 Z" fill="none" stroke="#FFFFFF" stroke-opacity=".22" stroke-width="1.2"/></pattern></defs>
+        <circle cx="200" cy="262" r="62" fill="#FFE7A6" fill-opacity=".9"/>
+        <rect width="400" height="300" fill="url(#jaali)"/>
+        <path d="M0 262 H400 V300 H0 Z" fill="#1D1B22" fill-opacity=".35"/>
+      </svg>
+      <div class="cap"><span>East Gate, 6:41 am</span><span>1 / 8</span></div>
+    </div>
+
+    <div class="title">
+      <h1>Sunrise at the Taj with Ravi</h1>
+      <p class="meta">Private · 6 hours · Hotel pickup in Agra · English, Hindi</p>
+      <span class="checked"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M4.8 8.2l2.2 2.2 4.2-4.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Licence checked by us · Covered by the Promise</span>
+    </div>
+
+    <section class="arc" id="arc">
+      <h2>Your day, dawn to noon</h2>
+      <svg viewBox="0 0 400 110" role="img" aria-label="Route of the day as an arc with five stops">
+        <path d="M20 90 Q200 -40 380 90"/>
+        <circle cx="20" cy="90" r="7"/><circle cx="105" cy="42" r="7"/><circle cx="200" cy="25" r="9"/><circle cx="295" cy="42" r="7"/><circle cx="380" cy="90" r="7"/>
+      </svg>
+      <ol class="stops">
+        <li><time>5:40</time><span>Ravi meets you at your hotel</span></li>
+        <li><time>6:00</time><span>East Gate, before the queue</span></li>
+        <li><time>6:41</time><span>Sunrise on the marble</span></li>
+        <li><time>9:00</time><span>Breakfast, then Agra Fort</span></li>
+        <li><time>11:40</time><span>Back at your hotel</span></li>
+      </ol>
+      <button class="quiet" id="replay" type="button">Draw the day again</button>
+    </section>
+
+    <section>
+      <h2>Meet Ravi</h2>
+      <div class="guide">
+        <div class="face" aria-hidden="true">R</div>
+        <div class="who"><strong>Ravi S.</strong><span class="meta">Guiding in Agra for 14 years</span><span class="checked">Licence RLG-NR-0000 · Ministry of Tourism</span></div>
+        <div class="hello" id="hello">
+          <button class="play" id="play" type="button" aria-pressed="false"><span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span id="playlabel">Hear Ravi say hello · 10 s</span></button>
+          <p class="caption" id="caption" aria-live="polite">Captions appear here. The prototype has no sound.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Pick your morning</h2>
+      <div class="dates" id="dates"></div>
+      <p class="sun" id="sun" aria-live="polite"></p>
+    </section>
+
+    <section>
+      <div class="promise">
+        <svg class="seal" id="seal" viewBox="0 0 56 56" aria-hidden="true"><circle class="ring" cx="28" cy="28" r="25"/><path class="tick" d="M18 29l7 7 14-15"/></svg>
+        <p><strong>The Promise.</strong> If your guide doesn't show, or takes you to a shop you didn't ask for, you get every rupee back.</p>
+        <details><summary>What it covers</summary><ul><li>Guide not there within 20 minutes: another guide, or a full refund plus 20% credit.</li><li>No shop or workshop stops unless you ask in the chat.</li><li>The total you pay us is the total. Tickets and tips are listed first.</li></ul></details>
+      </div>
+      <div class="paybar">
+        <div class="price"><span id="total">£84</span><small>for 2 people · Taj ticket included · no fees</small></div>
+        <button class="pay" id="pay" type="button">Hold my morning</button>
+      </div>
+    </section>
+
+    <section class="done" id="done" hidden>
+      <canvas id="petals" aria-hidden="true"></canvas>
+      <svg class="stamp" viewBox="0 0 150 150" aria-hidden="true">
+        <circle cx="75" cy="75" r="68" stroke-width="3"/><circle cx="75" cy="75" r="58" stroke-width="1.2" stroke-dasharray="3 4"/>
+        <path d="M75 40 L88 62 L112 62 L94 79 L101 104 L75 90 L49 104 L56 79 L38 62 L62 62 Z" stroke-width="2"/>
+        <text x="75" y="33" text-anchor="middle" font-size="13">AGRA</text><text x="75" y="128" text-anchor="middle" font-size="11" id="stampdate">13 MAR</text>
+      </svg>
+      <h2 id="donehead" tabindex="-1">You're going. Ravi has your date.</h2>
+      <p class="meta" id="doneline"></p>
+      <button class="quiet" id="again" type="button" style="align-self:center">Run it again</button>
+    </section>
+  </main>
+
+  <aside class="notes">
+    <h2>What gives this page its life</h2>
+    <ol>
+      <li><b>Today in Agra</b><span>A live line of real facts. It makes the trip feel like tomorrow, not someday.</span></li>
+      <li><b>The day-arc</b><span>The whole morning in one line that draws itself. You see the day before you read a word.</span></li>
+      <li><b>Ravi's hello</b><span>A named person with a voice. Teal marks only what we have checked.</span></li>
+      <li><b>Sunrise on the calendar</b><span>Tap a date and the page answers with that morning's sunrise.</span></li>
+      <li><b>The Promise beside the button</b><span>Reassurance peaks exactly where the doubt does.</span></li>
+      <li><b>The stamp</b><span>One celebration, once: an inked stamp and marigold petals. Tap "Hold my morning".</span></li>
+    </ol>
+    <p>Everything here is plain CSS and SVG, about 11 KB, with no animation library. With reduced motion switched on, each effect becomes still.</p>
+    <p>No timers, no "2 left", no fake reviews. The excitement comes from seeing the day.</p>
+  </aside>
+</div>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $ = function(id){ return document.getElementById(id); };
+  function replay(el, cls){ el.classList.remove(cls); void el.getBoundingClientRect(); el.classList.add(cls); }
+  replay($('arc'),'draw'); replay($('seal'),'draw');
+  $('replay').addEventListener('click', function(){ replay($('arc'),'draw'); });
+
+  // Guide hello: captions only, no audio in the prototype.
+  var lines = ['"Namaste, I\'m Ravi."','"I\'ll meet you at your hotel at 5:40."','"We\'ll be through the East Gate before the crowd."','"Bring a light jacket. See you soon."'];
+  var timer = null;
+  function stopHello(){ clearInterval(timer); timer = null; $('hello').classList.remove('playing'); $('play').setAttribute('aria-pressed','false'); $('playlabel').textContent = 'Hear Ravi say hello · 10 s'; }
+  $('play').addEventListener('click', function(){
+    if (timer){ stopHello(); return; }
+    var i = 0; $('hello').classList.add('playing'); $('play').setAttribute('aria-pressed','true'); $('playlabel').textContent = 'Stop';
+    $('caption').textContent = lines[0];
+    timer = setInterval(function(){ i++; if (i >= lines.length){ stopHello(); return; } $('caption').textContent = lines[i]; }, 2400);
+  });
+
+  // Dates: example week in March 2027. Friday is closed. Sunrise times are examples.
+  var days = [['Wed',10,'6:44'],['Thu',11,'6:43'],['Fri',12,null],['Sat',13,'6:41'],['Sun',14,'6:40'],['Mon',15,'6:39'],['Tue',16,'6:38'],['Wed',17,'6:37']];
+  var chosen = 3, box = $('dates');
+  days.forEach(function(d, i){
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'date'; b.id = 'date-' + d[1];
+    b.innerHTML = '<span>' + d[0] + ' ' + d[1] + '</span><small>' + (d[2] ? '£84' : 'Closed') + '</small>';
+    if (!d[2]) b.disabled = true;
+    b.setAttribute('aria-pressed', i === chosen ? 'true' : 'false');
+    b.addEventListener('click', function(){ chosen = i; Array.prototype.forEach.call(box.children, function(c, j){ c.setAttribute('aria-pressed', j === i ? 'true' : 'false'); }); showSun(); });
+    box.appendChild(b);
+  });
+  function showSun(){ var d = days[chosen]; $('sun').innerHTML = '<b>' + d[0] + ' ' + d[1] + ' March.</b> Sunrise ' + d[2] + '. Ravi is free. Starts 5:40 am India time, which is 12:10 am in London.'; }
+  showSun();
+
+  // Booking stamp and petals.
+  function petals(){
+    if (reduce) return;
+    var c = $('petals'), r = c.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
+    c.width = r.width * dpr; c.height = r.height * dpr;
+    var x = c.getContext('2d'); x.scale(dpr, dpr);
+    var cols = ['#F2A900','#F6C445','#C2255C'], ps = [];
+    for (var i = 0; i < 24; i++) ps.push({x: Math.random()*r.width, y: -10 - Math.random()*60, v: 90 + Math.random()*140, s: 4 + Math.random()*5, a: Math.random()*6, w: (Math.random()-.5)*4, c: cols[i%3]});
+    var t0 = null;
+    function step(t){
+      if (!t0) t0 = t; var dt = (t - t0)/1000; x.clearRect(0,0,r.width,r.height);
+      ps.forEach(function(p){ var y = p.y + p.v*dt, px = p.x + Math.sin(p.a + dt*3)*14;
+        x.save(); x.translate(px, y); x.rotate(p.a + dt*p.w); x.globalAlpha = Math.max(0, 1 - dt/1.1); x.fillStyle = p.c;
+        x.beginPath(); x.ellipse(0, 0, p.s, p.s*0.55, 0, 0, Math.PI*2); x.fill(); x.restore(); });
+      if (dt < 1.1) requestAnimationFrame(step); else x.clearRect(0,0,r.width,r.height);
+    }
+    requestAnimationFrame(step);
+  }
+  function celebrate(){
+    var d = days[chosen], done = $('done');
+    $('stampdate').textContent = d[1] + ' MAR';
+    $('doneline').textContent = d[0] + ' ' + d[1] + ' March, 5:40 am at your hotel. Free to cancel until 5:40 am the day before.';
+    done.hidden = false; replay(done, 'go'); petals();
+    try { if (navigator.vibrate) navigator.vibrate(12); } catch (e) {}
+    $('donehead').focus({preventScroll: true}); done.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block: 'center'});
+  }
+  $('pay').addEventListener('click', celebrate);
+  $('again').addEventListener('click', celebrate);
+})();
+</script>

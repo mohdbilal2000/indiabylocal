@@ -19,16 +19,17 @@ Suppliers think in a net rupee amount, so that is how the product speaks to them
 | # | Step | Time |
 |---|---|---|
 | 1 | Phone code, choose Hindi or English, WhatsApp opt-in | 1 min |
-| 2 | Profile: selfie, city, languages, years guiding, guide or agency | 2 min |
-| 3 | Listing by voice note or by sending an existing itinerary; AI drafts in English; confirm card by card; autosave | 4 min |
-| 4 | Photos, five minimum, with instant coaching; cover picked automatically | 3 min |
-| 5 | Price: type "I want ₹X per person or group"; see "traveller pays about $Y; you receive ₹X"; tickets included or paid on the spot | 1 min |
-| 6 | Availability: default "open daily, 24 hours' notice"; tap to block dates | 30 sec |
-| 7 | Quality score out of 100 with the three biggest fixes; submit | — |
+| 2 | See the money first: "I want ₹X" → "traveller pays about $Y; you receive ₹X" | 1 min |
+| 3 | Profile: selfie, city, languages, years guiding, guide or agency | 2 min |
+| 4 | Listing by voice note or by sending an existing itinerary; AI drafts in English; confirm card by card; autosave | 4 min |
+| 5 | Photos against the eight-shot checklist, six needed to publish, with instant coaching | 3 min |
+| 6 | Confirm price and options; tickets included or paid on the spot | 30 sec |
+| 7 | Availability: default "open daily, 24 hours' notice"; tap to block dates | 30 sec |
+| 8 | See your public page; then "three things that get you more bookings"; submit | — |
 
-The pipeline behind steps 3 and 4 is in [02-architecture.md](02-architecture.md).
+The pipeline behind steps 4 and 5 is in [02-architecture.md](02-architecture.md). The supplier app's screens, Hindi copy and motivation rules are in [08-experience.md](08-experience.md), section 9.
 
-**After going live:** booking alert by WhatsApp with one-tap accept (2–4 hours to respond, then instant booking for trusted suppliers); a reminder the day before; an earnings screen showing paid, on the way, and the date.
+**After going live:** bookings confirm instantly from the supplier's calendar and arrive as a WhatsApp alert; inside the cut-off the alert asks for a one-tap accept; a reminder the day before; an earnings screen showing paid, on the way, and the date.
 
 ## 3. Verification
 
@@ -98,8 +99,8 @@ Action is taken only on flagrant solicitation: a warning, then removal.
 
 | When | Suppliers | Bookings | Reviews |
 |---|---|---|---|
-| Month 3 | 20+ vetted | 30 | 25+ at 4.7 or above |
+| Month 3 | 20+ vetted | 30 | 15+ at 4.7 or above |
 | Month 6 | — | 60+ a month | refunds under 5% |
-| Month 12 | — | 150–250 a month in peak | repeat or referral above 15% |
+| Month 12 | — | 100–150 a month in peak | repeat or referral above 15% |
 
 These are planning assumptions, not forecasts from data.

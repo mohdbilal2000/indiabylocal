@@ -7,8 +7,8 @@ Versions were read from the npm registry on 11 Nov 2026. Pricing came from third
 | Layer | Choice | Why | Exit path |
 |---|---|---|---|
 | Framework | Next.js 16.4.6, React 19.3.1 | Static shell with live price streamed in; one framework for all three surfaces | OpenNext build on Cloudflare, run in CI each quarter |
-| Language | TypeScript 7.0.2 | Current | Fall back to the last 5.x or 6.x if tooling breaks |
-| Hosting | Vercel Pro (about $20/month) | Patches framework flaws at the platform first | As above |
+| Language | TypeScript 7.0.2 | Latest on npm; ecosystem support unverified, hence the fallback | Fall back to the last 5.x or 6.x if tooling breaks |
+| Hosting | Vercel Pro (about $20/month), functions in Frankfurt beside the database | Patches framework flaws at the platform first | As above |
 | Database | Neon Postgres, Frankfurt | Point-in-time recovery; branches for drills and sandboxes | Standard Postgres dump restores anywhere |
 | Data access | Drizzle 0.45.4, hand-written SQL migrations | Constraints stay explicit | Plain SQL |
 | API | One service layer, exposed with oRPC 1.16.2 | Typed for the app, OpenAPI for agents | — |
@@ -98,6 +98,12 @@ The provider losing data is the least likely failure. A bad migration, a leaked 
 8. Raw payment events are stored before they are processed.
 9. An outbox row is written in the same transaction as the booking; the job runner delivers and retries.
 
+10. Photo originals are copied weekly to the second storage provider.
+
+**Targets:** lose at most 5 minutes of data in a provider-side recovery, and at most 24 hours if we must rebuild from our own dump; be back in service within 4 hours.
+
+**Erasure requests.** Personal details live in their own tables. An erasure request blanks those fields; bookings, ledger entries and audit records keep their IDs and amounts, which tax law requires us to retain. The audit log stores references, not personal details.
+
 **Not covered:** a single-region provider outage stops bookings for its duration. There is no failover at launch; that is an accepted risk at this size.
 
 ## 5. Booking integrity
@@ -107,7 +113,7 @@ The provider losing data is the least likely failure. A bad migration, a leaked 
 - **Holds** last 15 minutes, are swept by a job, and become a booking inside the transaction that processes the payment event.
 - **Time:** stored as a timestamp with the tour's zone (`Asia/Kolkata`) and its local date and time. Displayed tour-local first, traveller-local second.
 - **Price:** computed from rules, then snapshotted onto the booking with the exchange rate used.
-- **Supplier price is in rupees, fixed.** The traveller price is derived from it; we carry the currency risk and price a 2–3% buffer into the margin.
+- **Supplier price is in rupees, fixed.** The traveller price is derived from it at the rate when the booking is made, then rounded up to a whole unit of the traveller's currency. We carry the currency risk between booking and settlement; it is a cost line (assumed 1.5%) in [03](03-payments-tax-legal.md), not an extra charge.
 
 ## 6. Payments in code
 
@@ -134,7 +140,7 @@ Budget about $0.30 of model cost per listing (an estimate).
 **Photo rules**
 
 - **Blocked:** long edge under 1280 px; unsafe content; duplicates within a listing or across suppliers; watermarks, text overlays, collages, screenshots, logos.
-- **Warned:** under 2048 px; blurry; too dark or blown out; fewer than six photos; none of the actual activity or guide; stock-looking.
+- **Needed to publish:** six photos. **Warned:** under 2048 px; blurry; too dark or blown out; fewer than the eight shots in [08](08-experience.md); none of the actual activity or guide; stock-looking.
 - **Hero:** landscape, survives 4:3 and 16:9 crops, people doing the experience, no text.
 - **Consent:** a tick when identifiable faces appear; identifiable children need consent.
 - WhatsApp compresses photos, so suppliers are coached to send them as documents or use the picker.

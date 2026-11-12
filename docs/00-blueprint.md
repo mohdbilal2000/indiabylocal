@@ -1,6 +1,6 @@
 # Blueprint
 
-Written 11 Nov 2026. Every claim here traces to [06-evidence.md](06-evidence.md), which also says how well each one was verified.
+Written 11 Nov 2026, revised 12 Nov after an independent audit scored the first version 5.5 out of 10. Sources, and how well each area was verified, are in [06-evidence.md](06-evidence.md).
 
 ## 1. What we are building
 
@@ -12,6 +12,10 @@ Written 11 Nov 2026. Every claim here traces to [06-evidence.md](06-evidence.md)
 2. Diaspora families visiting with foreign-born children. Cheap to reach through community groups, and they travel in Dec–Jan and Jun–Aug.
 
 Verified women guides for solo female travellers run across both as a trust layer.
+
+Continental Europe is entered later and through guides who speak the language, not through translation. See [10-markets.md](10-markets.md).
+
+**What we sell, in order:** excitement (you can already picture the morning), safety (you know who is meeting you), and the Promise (your money back if it is not what we showed). See [08-experience.md](08-experience.md).
 
 **Where it starts:** Agra and Delhi, then Jaipur. Day tours only at launch (see the package-travel rule in [03](03-payments-tax-legal.md)).
 
@@ -33,7 +37,7 @@ Read directly from their site on 11 Nov 2026.
 
 | Observation | Consequence for us |
 |---|---|
-| Built on Next.js with Cloudinary images, like our plan | Our stack is not an advantage by itself; craft and data are |
+| Built on Next.js, like our plan | Our stack is not an advantage by itself; craft and data are |
 | Agra hub page is 1.9 MB of HTML, of which 454 KB is structured data | A fast, lean hub page is an easy visible win |
 | Agra hub shows filters such as "Cherry blossom & seasons 63" and "Elephants & wildlife 30", and a count of 560 | Their categories leak across countries; ours are scoped per city |
 | A tour headed "from $32" lists options at $15, $32 and $55 | "From" price must equal the cheapest bookable option, enforced in code |
@@ -56,7 +60,7 @@ TOURSBYLOCALS is a registered trademark in the US (Reg. 6040623) and Canada (TMA
 
 - **Risk:** opposition or a confusion claim in exactly the markets we target; weak protection because the name is geographically descriptive.
 - **Recommendation:** commission a clearance search (US, UK, EU, Canada, Australia, India) before incorporating, and choose a fallback name now. The repository name can stay.
-- **Cost of waiting:** none. Nothing in Phase 0 or 1 depends on the name.
+- **Sequence:** build work in Phases 0 and 1 does not depend on the name, so it starts now. Incorporation does, so the search comes before it.
 
 ### D2. How traveller money reaches guides
 
@@ -84,7 +88,7 @@ Take these to a chartered accountant before registering:
 2. Is our commission on a foreign traveller's booking an export of services?
 3. How are guides below the ₹20 lakh registration threshold treated, and what do we withhold (GST TCS under section 52, income-tax TDS on e-commerce payouts)?
 
-The answers move what we keep from roughly 11.6% to 14.6% of the booking value. See [03](03-payments-tax-legal.md).
+The answers move what we keep from roughly 11.5% to 14.6% of the booking value. See [03](03-payments-tax-legal.md).
 
 ## 4. Decisions already made
 
@@ -103,20 +107,24 @@ Where the research tracks disagreed, this is the ruling.
 | Card image ratio | 4:3 everywhere | Matches what suppliers already shoot for other platforms |
 | Breakpoints | 640 / 768 / 1024 / 1280 for the page shell; container queries for components | Framework defaults; fewer custom rules |
 | Multi-day tours | Not at launch | Bundled transport plus accommodation can make us a package organiser under EU and UK law |
-| Languages | English only at launch, routes built for more | Machine-translated pages are a spam-update risk |
-| Video | Not at launch | Cost and complexity without evidence of return |
+| Languages | Traveller site in English at launch; supplier app in Hindi and English. German, French, Spanish follow, each gated on three vetted guides who speak it | The European search is "guide who speaks my language" |
+| Video | No hosted long video at launch. Tap-through stills and a 10-second spoken hello from the guide | Gives the page a voice at about 40 KB, loaded only on tap |
+| Motion | Five named signature interactions, about 11 KB together, replacing the earlier "one signature moment" | The first spec was flat; see [08](08-experience.md) |
+| Palette and fonts | Locked: indigo and marigold, plus gulal rose for celebration and peacock teal for anything verified. Fraunces and Inter | Teal used only on verified things gives safety its own colour |
+| Confirmation | Launch suppliers are hand-vetted and confirm instantly from their calendar. Request-to-book applies only inside the booking cut-off | Most travellers book under a week ahead; Google's listings need instant confirmation |
+| The guarantee | Called "the Promise", six plain commitments with terms one tap away | "Guarantee" and "safe" are claims regulators test |
 
 ## 5. Expectations to hold
 
 - **Search:** head terms such as "Taj Mahal tour" are not winnable within 24 months. Year one is long-tail and question queries. See [05](05-growth-seo.md).
-- **Margin:** a 20% take leaves about 11.6% of booking value before marketing and support. Paid search at $30–60 per booking loses money on a day tour.
-- **Year one:** the research model gives about 980 bookings and $137k in bookings, on its own assumptions; a downside case is 40% of that. At 11.6%, that is roughly $16k kept. Year one buys reviews, rankings and supply, not income.
+- **Margin:** a 20% take leaves about 11.5% of booking value before marketing and support. Paid search at $30–60 per booking loses money on a day tour.
+- **Year one:** the planning model in [05](05-growth-seo.md) gives about 670 bookings and $94k in bookings, which leaves roughly $11k. It is a model, not a forecast. Year one buys reviews, rankings and supply, not income.
 - **Market:** arrivals to India in 2025 were about 9 million, still below 2019, and a conflict in West Asia cut 2026 leisure bookings by 15–25%. Foreign visitors to the Taj Mahal number about 645,000 a year.
-- **Season:** peak is October to March. To earn reviews before the 2026–27 season ends, a soft launch is needed by February 2027. To catch 2027–28, the full product must be live by July 2027.
+- **Season:** peak is October to March. Registration and gateway approval take roughly 7–11 weeks and one person is building, so the full product will not be live this season. A small pilot in February and March 2027, with 5–10 guides and payment by gateway link, earns the first reviews. The full product must be live by July 2027 to catch 2027–28.
 
 ## 6. Build order
 
-Each phase ends with something that can be checked. Nothing in a later phase starts until the check passes.
+Each phase ends with something that can be checked. Nothing in a later phase starts until the check passes. Every individual brick — 25 components, 32 traveller screens, 23 supplier screens, 19 admin functions, 21 messages, 18 jobs — is listed with an ID and its phase in [09-inventory.md](09-inventory.md).
 
 ### Phase 0 — Ground (now; no code depends on D1–D3)
 

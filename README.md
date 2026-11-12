@@ -40,7 +40,7 @@ Verify the figures on the Taj Mahal fact page, then set `SITE_LIVE=1` and `NEXT_
 
 ## Blueprint
 
-The documents in `docs/` were produced from 13 parallel research tracks on 11 Nov 2026 and decide what gets built and in what order.
+The documents in `docs/` were produced from 13 parallel research tracks on 11 Nov 2026, then audited and extended by 5 more on 12 Nov. They decide what gets built and in what order.
 
 | Doc | What it decides |
 |---|---|
@@ -50,7 +50,12 @@ The documents in `docs/` were produced from 13 parallel research tracks on 11 No
 | [docs/03-payments-tax-legal.md](docs/03-payments-tax-legal.md) | Money flow, unit economics, registration checklist, consumer law |
 | [docs/04-supply-ops.md](docs/04-supply-ops.md) | Supplier onboarding, verification, quality and safety operations |
 | [docs/05-growth-seo.md](docs/05-growth-seo.md) | SEO, AI-answer visibility, content calendar, channels, funnel |
-| [docs/06-evidence.md](docs/06-evidence.md) | What was verified, what was not, and the sources |
+| [docs/06-evidence.md](docs/06-evidence.md) | What was verified, what was not, the audit, and the sources |
 | [docs/07-how-to-brief.md](docs/07-how-to-brief.md) | How to ask Claude for work on this project |
+| [docs/08-experience.md](docs/08-experience.md) | The life of the product: moments, signature interactions, voice, the Promise, safety, supplier experience |
+| [docs/09-inventory.md](docs/09-inventory.md) | Every brick: components, screens, messages, jobs, admin functions |
+| [docs/10-markets.md](docs/10-markets.md) | Market-by-market entry, languages, page templates, AI-answer operations |
+
+A clickable prototype of the tour page is in `docs/prototype/day-unfolds.html`. It shows the direction with example content; it is not a design system.
 
 Read `00-blueprint.md` first. Three decisions in it need an answer before any money is spent.

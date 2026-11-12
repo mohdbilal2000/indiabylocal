@@ -22,10 +22,10 @@ Worked example on a $125 booking. Lines marked (a) are assumptions.
 | Currency spread, 1.5% (a) | −1.88 |
 | Supplier payout fee (a) | −0.25 |
 | Chargeback reserve, 0.5% (a) | −0.63 |
-| Fees lost on refunds at a 5% refund rate (a) | −0.22 |
-| **Left before marketing and support** | **14.46 (11.6% of booking)** |
+| Card fee and spread lost on refunds, at a 5% refund rate (a) | −0.28 |
+| **Left before marketing and support** | **14.40 (11.5% of booking)** |
 
-- If the commission is treated as an export, or GST is charged on top to registered suppliers, the figure is about $18.27 (14.6%). **[CA]**
+- If the commission is treated as an export, or GST is charged on top to registered suppliers, the figure is about $18.21 (14.6%). **[CA]**
 - Tax withheld from suppliers is their cost, not ours.
 - **20% works only while winning a booking costs under about $8–10.** Paid search at $30–60 per booking loses money on a day tour.
 

@@ -8,7 +8,8 @@ Each rule carries its evidence grade: **[E]** published research or regulation, 
 2. **Never make the traveller calculate.** Totals, time zones and ticket costs are worked out for them. [J]
 3. **Small inventory is curated, not hidden.** With about 100 tours, we recommend; we do not make people search. [E: choice overload appears under preference uncertainty, which describes first-time visitors]
 4. **Claims are provable on the page.** Licence numbers, real counts, dated facts. [E: fake-review and pressure-selling rules in the US, UK and EU]
-5. **Motion and decoration must earn their place.** One signature moment; everything else is feedback. [J]
+5. **Motion and decoration must earn their place.** Five named signature interactions; everything else is feedback. [J]
+6. **Every screen opens a little more of one real day.** The emotional layer is specified in [08-experience.md](08-experience.md) and is part of this spec, not an extra. [J]
 
 ## 2. Design tokens
 
@@ -33,7 +34,7 @@ Most colour psychology is weakly supported; no rigorous public evidence shows on
 - Status is never carried by colour alone; each has an icon.
 - Dark mode: surface `#14131A`, card `#1E1D27`, text `#ECE9F2`, muted `#A9A5B5`, brand `#A9B0FF`, action unchanged.
 
-**Open point:** a widely used design-quality checker flags cream-and-warm-accent palettes and "Inter everywhere" as marks of generated design. Our palette is indigo-led on off-white, and Inter is paired with a distinctive serif, but both choices get a human design review in Phase 0 before they are locked. Alternatives on file: peacock teal with magenta action; Newsreader with Source Sans 3.
+**Locked.** Two accents join the palette, each with one job: gulal rose `#C2255C` for celebration, and peacock teal `#0F766E` only for things we have verified. A design-quality checker flags "Inter everywhere" as a mark of generated design; here Inter is the quiet partner, and character comes from Fraunces, the ornament set and real photography. See [08](08-experience.md).
 
 ### Type
 
@@ -54,7 +55,7 @@ Most colour psychology is weakly supported; no rigorous public evidence shows on
 | small | `clamp(0.875rem, 0.851rem + 0.109vw, 0.9375rem)` | 14→15 |
 | caption | `0.8125rem` | 13 |
 
-Body text never drops below 16 px, which also stops iOS zooming on input focus.
+Body text never drops below 16 px, which also stops iOS zooming on input focus. Line height is 1.55 for body, 1.15 for display and h2, 1.25 for h3 and h4. Weights: 400 body, 600 emphasis and prices, Fraunces 500–600 for headings.
 
 ### Space, shape, depth
 
@@ -75,7 +76,7 @@ Body text never drops below 16 px, which also stops iOS zooming on input focus.
 Specific, verifiable, no superlatives. No "best", "100% safe" or countdowns. Spelling, currency and dates localise; tone does not, because no solid evidence supports country-specific tone.
 
 - "£84 total for 2 people. No booking fees."
-- "Free cancellation until 09:00 India time on 14 March."
+- "Free cancellation until 05:30 India time on 12 March."
 - "Licensed by India's Ministry of Tourism. ID checked by us."
 
 ## 3. Layout and responsive behaviour
@@ -107,7 +108,7 @@ Specific, verifiable, no superlatives. No "best", "100% safe" or countdowns. Spe
 - Only transform, opacity and clip-path animate.
 - Card-to-tour image morphs use same-document view transitions; scroll-linked effects use CSS scroll-driven animations. Both are enhancements that degrade to nothing.
 - Reduced-motion preference replaces movement with a short fade or nothing.
-- One signature moment, on the homepage hero.
+- The five signature interactions are specified in [08](08-experience.md): booking stamp, Promise seal, card-to-page morph, day-arc draw, guide hello.
 
 ### Performance budgets
 
@@ -141,11 +142,11 @@ Target WCAG 2.2 AA. The EU's accessibility law has applied since June 2025, and 
 
 **Traveller's questions:** Is this legitimate? Do they cover my city? Will I be overcharged?
 
-1. **Hero.** Heading: "Licensed local guides in India. Fixed prices. Free cancellation." Below it, 4–6 city tiles ("Agra · 12 tours from $29"). On a phone the heading, one trust line and two tiles are visible without scrolling.
+1. **Hero.** Heading: "See the Taj, not the marble shop." Sub-line: "Licence-checked local guides in Agra, Delhi and Jaipur. One price. Your money back if it isn't what we showed you." Beside it, the live "Today in Agra" line. Below, 4–6 city tiles ("Agra · 12 tours from $29"). On a phone the heading, the live line and two tiles are visible without scrolling.
 2. **Trust bar, four items.** Government-licensed guides · Price shown is price paid · Free cancellation to 24 hours · Support on WhatsApp. Each must be true and linked to its proof.
 3. **Most booked.** Six cards at most per city.
 4. **Guides.** Faces with licence numbers. [E: a trustworthy host photo raises the chance of being chosen]
-5. **How it works**, three steps.
+5. **How it works**, three steps: pick a day and see it unfold; pay one price, covered by the Promise; meet your guide, whose name, face and licence you already know.
 6. **Founder and registered address.**
 7. **Questions:** scams, safety, hygiene, tickets.
 
@@ -200,7 +201,7 @@ Top to bottom, identical on every card:
 **Desktop:** the same order on the left; the price box is a sticky card on the right.
 
 - **Sticky bar (phone):** "From $X per person · Check availability", shown once the price box scrolls away, hidden while the keyboard is open.
-- **Time:** "Starts 05:30 India time, Sat 14 Mar. That's 20:00 Fri in New York."
+- **Time:** "Starts 05:30 India time, Sat 13 Mar. That's 19:00 Fri in New York."
 - **Tickets:** if excluded, the price box says so with the amount, taken from the official source and dated.
 - **Fridays** are blocked for Taj Mahal tours.
 - About 60 words above the fold; the rest is scannable.
@@ -212,7 +213,8 @@ Top to bottom, identical on every card:
 - Private tours show the group total and "= $X per person"; tiers as a small table (1 / 2 / 3–4 / 5+).
 - Add-ons are unticked boxes. Pre-ticked paid extras are unlawful in the EU. [E]
 - A live total with "No booking fees."
-- Instant-confirmation tours are badged and ranked first. Request-to-book authorises the card only and states when the hold lapses.
+- Launch tours confirm instantly. Inside the booking cut-off a tour becomes request-to-book: the card is authorised, not charged, and the page states when the hold lapses.
+- Children: each option states its child age band and price. Shared departures show seats left only from live inventory.
 
 ### 4.7 Checkout
 

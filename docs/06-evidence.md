@@ -38,10 +38,63 @@ Research ran on 11 Nov 2026 as 13 parallel tracks, followed by direct checks of 
 | Guide phone number | 48 hours before vs at booking | In-platform chat at booking; number 48 hours before |
 | Card image ratio | 3:2 vs 4:3 | 4:3 |
 | Breakpoints | 360/600/900/1200/1440 vs 640/768/1024/1280 | Framework defaults plus container queries |
-| Year-one take | $22k (card costs only) vs 11.6% contribution | The lower figure, about $16k |
+| Year-one take | $22k (card costs only) vs 11.5% contribution on a rebuilt forecast | About $11k |
+| Entry tickets and commission | Not raised in round one | Open: whether tickets passed through at cost carry the 20% |
 | Accessibility exemption | Exempt as a micro-enterprise vs in scope | Build to WCAG 2.2 AA regardless |
 
-## 4. Myths this plan ignores
+## 4. The second pass (12 Nov 2026)
+
+The founder judged the first blueprint not good enough: no life in the experience, and not everything asked for was delivered. Five more tracks ran: emotional design, per-market search, traveller voice and guarantees, supplier experience, and an independent audit that read every document against the original request.
+
+### The audit's scores for the first version
+
+| Area | Score | What changed in response |
+|---|---|---|
+| Emotional appeal | 2 | [08-experience.md](08-experience.md): concept, moments map, five signature interactions, voice, ornament, two accent colours |
+| Tier-1 market targeting | 3 | [10-markets.md](10-markets.md): eight markets, language roadmap, localisation per market |
+| Competitor dominance | 3 | Indian and specialist competitors researched; competitor screens viewed; still the weakest area (below) |
+| Brick-by-brick breakdown | 4 | [09-inventory.md](09-inventory.md): about 200 bricks with IDs and phases |
+| UI/UX psychology | 5 | Traveller fears and delights from reviews; lead emotion per segment |
+| Legal readiness | 5 | Promise wording with legal cautions; registration costs remain estimates |
+| AEO/GEO | 6 | 30-prompt panel, monthly procedure, entity plan |
+| Use of existing tooling | 6 | Unchanged: tools are shortlisted, not yet read and pinned |
+| Tech stack | 7 | Region stated; recovery targets added |
+| Supplier ease | 7 | Supplier app screens, Hindi copy, motivation rules |
+| Pricing and commission | 7 | Arithmetic corrected; loss-making channels removed |
+| SEO | 7 | Page templates; corrected facts |
+| Data durability | 8 | Recovery targets, photo backup, erasure handling |
+| **Overall** | **5.5** | — |
+
+These are the auditor's scores for the first version. The revised version has not been re-scored.
+
+### Errors the audit found, now fixed
+
+- The refund line in the unit economics did not follow from its inputs (0.22; correct is 0.28). Contribution is 11.5%, not 11.6%.
+- A currency buffer was "priced in" in one document and absent from the price in another.
+- Channels were recommended that cost more than a booking earns (10% hotel referral, travel advisers, reselling on large platforms).
+- The forecast put fast growth in May to July, when demand halves, and was built from a traffic guess. It is rebuilt from bookings by channel: about 670 bookings, not 980.
+- A February 2027 soft launch did not fit 7–11 weeks of registration plus the build. It is now a small pilot.
+- An example date named the wrong weekday, and a cancellation example fell after the tour started.
+- Photos: five in one place, six in another. Now six to publish, eight to aim for.
+- "Soft deletes only" conflicted with the duty to erase personal data on request.
+- The first version said every claim traced to this file. It does not: this file grades areas, not individual claims.
+
+### Still short of 10 out of 10
+
+- **Competitor screens.** GetYourGuide and Klook refused automated access; Viator, ToursByLocals and Withlocals were not viewed. No competitor's checkout was walked through.
+- **Search volumes.** The keyword tool did not connect, so no volume or difficulty figure is measured.
+- **Traveller voice.** Built from search snippets; few first-person quotes; nothing found for families, diaspora or backpackers.
+- **Legal costs and steps in Agra.** Still estimates from general knowledge; no office-by-office checklist.
+- **Data model.** Entities and state machines are named; columns and indexes are written when Phase 1 starts.
+- **Tooling.** The recommended skills and repositories have not been read line by line or pinned.
+- **No visual design exists yet.** One prototype screen shows the direction; it is not a design system.
+
+### What the tracks were
+
+Round one: frontend framework; backend and durability; payments and tax; media, search and messaging; UI stack and Claude tooling; competitor teardown; visual identity; discovery pages; tour page and checkout; responsive, motion and performance; SEO/AEO/GEO; supplier side; market and legal.
+Round two: emotional design; per-market SEO/AEO/GEO; traveller voice and guarantees; supplier experience; independent audit.
+
+## 5. Myths this plan ignores
 
 - "Blue means trust; orange means buy."
 - "Serifs are more trustworthy" or "more readable".
@@ -51,7 +104,7 @@ Research ran on 11 Nov 2026 as 13 parallel tracks, followed by direct checks of 
 - "45–75 characters per line is scientifically proven."
 - "`llms.txt` gets you cited."
 
-## 5. Sources
+## 6. Sources
 
 ### Competitors and commissions
 - https://www.asiabylocals.com/ · /india/agra · /india/agra/taj-mahal-agra-private-day-tour-with-lunch · /supplier (read directly)
@@ -165,6 +218,29 @@ Research ran on 11 Nov 2026 as 13 parallel tracks, followed by direct checks of 
 - https://github.com/coreyhaines31/marketingskills
 - https://github.com/blader/humanizer
 - https://github.com/upstash/context7
+
+### Second pass
+- https://link.springer.com/content/pdf/10.1007/s11482-009-9091-9.pdf (anticipation and holiday happiness)
+- https://ideas.repec.org/a/eee/jobhdp/v170y2022ics0749597822000334.html (peak-end meta-analysis)
+- https://baymard.com/blog/perceived-security-of-payment-form
+- https://caniuse.com/vibration · https://caniuse.com/cross-document-view-transitions
+- https://www.gov.uk/government/publications/using-urgency-and-price-reduction-claims-online
+- https://www.asa.org.uk/rulings/emaan-travel-ltd-a15-302323.html
+- https://www.airbnb.co.uk/aircover
+- https://www.toursbylocals.com/policy/toursbylocals-cancellation-policy
+- https://www.reviews.io/company-reviews/store/thrillophilia-com/Y5
+- https://www.mylittleadventure.com/best-things/new-delhi/tours/non-shopping-agra-day-tour-from-delhi-NWITpZ2icg
+- https://thinkwithgoogle.com/_qs/documents/13326/App_and_website_localization_for_Indian_users.pdf
+- https://design.google/library/connectivity-culture-and-credit
+- https://journals.sagepub.com/doi/full/10.1177/14614448221079028 (gamification in gig work)
+- https://fair.work/india-report-2021-accessible
+- https://skift.com/2026/03/05/openai-chatgpt-checkout-walkback/
+- https://searchengineland.com/ai-citation-data-no-universal-top-source-brands-471285
+- https://www.seroundtable.com/google-ai-mode-expands-40232.html
+- https://services.google.com/fh/files/helpcenter/tours_and_attractions_gbp_best_practices_playbook_2026.pdf
+- https://www.evaneos.fr/inde/ · https://www.civitatis.com/es/delhi/excursion-taj-mahal · https://www.dertour.de/rundreise/das-goldene-dreieck-indiens-7Z1C2L
+- https://www.unzer.com/en/knowledge/articles/preferred-payment-methods-germany-2026/
+- Competitor screens viewed directly: asiabylocals.com, headout.com, airbnb.com (12 Nov 2026)
 
 ### Market
 - https://skift.com/2026/01/07/how-india-traveled-in-2025-what-the-data-shows/
