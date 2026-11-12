@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BookingBox, StickyBar } from "@/components/BookingBox";
 import { Crumbs } from "@/components/Chrome";
+import { DayArc } from "@/components/DayArc";
 import { JsonLd, breadcrumbLd } from "@/components/JsonLd";
 import { Photo, hasPhoto } from "@/components/Photo";
 import { TourCard } from "@/components/TourCard";
@@ -191,6 +192,9 @@ export default async function TourPage({ params }: Props) {
               Itinerary
             </h2>
             <p className="mt-1 text-small text-muted">All times are India time.</p>
+            <div className="prose-col mt-4">
+              <DayArc stops={tour.itinerary} />
+            </div>
             <ol className="prose-col mt-5 border-l-2 border-brand">
               {tour.itinerary.map((s) => (
                 <li key={s.time} className="relative pb-6 pl-6 last:pb-0">

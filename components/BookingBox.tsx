@@ -1,5 +1,6 @@
 "use client";
 
+import { PromiseSeal } from "@/components/Promise";
 import { useEffect, useId, useMemo, useState } from "react";
 import { MAX_GROUP, TIER_LABELS, type Tour, tierIndex } from "@/lib/data";
 
@@ -208,6 +209,8 @@ export function BookingBox({ tour }: { tour: Tour }) {
           </p>
         )}
       </div>
+
+      <PromiseSeal />
 
       <button type="button" className="btn mt-4 w-full" onClick={() => setAsked(true)} disabled={Boolean(error)}>
         Check availability

@@ -17,7 +17,7 @@ Continental Europe is entered later and through guides who speak the language, n
 
 **What we sell, in order:** excitement (you can already picture the morning), safety (you know who is meeting you), and the Promise (your money back if it is not what we showed). See [08-experience.md](08-experience.md).
 
-**Where it starts:** Agra and Delhi, then Jaipur. Day tours only at launch (see the package-travel rule in [03](03-payments-tax-legal.md)).
+**Where it starts:** the site's catalogue covers 67 destinations across India, as built in the preview. Supply, first-hand content and reviews start in Agra and Delhi, then Jaipur; a destination page with no vetted guide says so plainly. Day tours only at launch (see the package-travel rule in [03](03-payments-tax-legal.md)).
 
 **Five things we do that the incumbents do not**
 

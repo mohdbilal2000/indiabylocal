@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { DayArc } from "@/components/DayArc";
 import { Photo } from "@/components/Photo";
 import { type Tour, cheapestOption, durationLabel, fromPrice } from "@/lib/data";
 import { type PublicListing, inr } from "@/lib/db";
@@ -30,8 +31,9 @@ export function TourCard({ tour }: { tour: Tour }) {
             {tour.title}
           </Link>
         </h3>
-        <p className="text-small text-success">
-          <span aria-hidden="true">✓ </span>Free cancellation
+        <DayArc stops={tour.itinerary} compact />
+        <p className="text-small text-verified">
+          <span aria-hidden="true">✓ </span>Free cancellation · Covered by the Promise
         </p>
         <div className="mt-auto pt-2">
           <p className="nums text-price font-semibold">

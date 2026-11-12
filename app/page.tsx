@@ -3,6 +3,7 @@ import { DestinationCard } from "@/components/DestinationCard";
 import { JsonLd, faqLd } from "@/components/JsonLd";
 import { Photo } from "@/components/Photo";
 import { Search } from "@/components/Search";
+import { Today } from "@/components/Today";
 import { TourCard } from "@/components/TourCard";
 import { tours } from "@/lib/data";
 import { destinationBySlug, destinations, inRegion, popular, regions, states } from "@/lib/destinations";
@@ -58,6 +59,7 @@ export default function Home() {
               </li>
             ))}
           </ul>
+          <Today />
         </div>
       </section>
 
@@ -69,7 +71,7 @@ export default function Home() {
           <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {promises.map((p) => (
               <li key={p.title} className="flex gap-3">
-                <span aria-hidden="true" className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-success text-caption font-bold text-white">
+                <span aria-hidden="true" className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-verified text-caption font-bold text-white">
                   ✓
                 </span>
                 <span>

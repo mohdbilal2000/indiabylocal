@@ -15,6 +15,9 @@
   --color-success: #186a3b;
   --color-warning: #8a5a00;
   --color-error: #b3261e;
+  /* Accents from docs/08-experience.md: rose for celebration, teal only for what we have verified. */
+  --color-celebrate: #c2255c;
+  --color-verified: #0f766e;
 
   --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
   --font-sans: var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -155,7 +158,73 @@
   }
 }
 
+@layer components {
+  .day-arc-line {
+    fill: none;
+    stroke: var(--color-brand);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-dasharray: 1;
+    animation: arc-draw 600ms var(--ease-enter) both;
+  }
+  .day-arc-stop {
+    fill: var(--color-action);
+    stroke: var(--color-ink);
+    stroke-width: 1.2;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: arc-pop 250ms ease-out both;
+  }
+  .group:hover .day-arc-line,
+  .group:focus-within .day-arc-line {
+    animation: arc-draw-again 600ms var(--ease-enter) both;
+  }
+  .promise-ring {
+    fill: none;
+    stroke: var(--color-verified);
+    stroke-width: 2;
+    stroke-dasharray: 1;
+    animation: arc-draw 400ms ease-out 150ms both;
+  }
+  .promise-tick {
+    fill: none;
+    stroke: var(--color-verified);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .today-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-action);
+    box-shadow: 0 0 0 0 rgb(242 169 0 / 0.7);
+    animation: today-pulse 2.4s ease-out 3;
+  }
+}
+@keyframes arc-draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+@keyframes arc-draw-again {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+@keyframes arc-pop {
+  from { opacity: 0; transform: scale(0.3); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes today-pulse {
+  to { box-shadow: 0 0 0 10px rgb(242 169 0 / 0); }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .day-arc-line,
+  .day-arc-stop,
+  .promise-ring,
+  .today-dot {
+    animation: none;
+  }
   .zoom img {
     transition: none;
   }

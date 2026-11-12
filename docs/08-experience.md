@@ -237,7 +237,17 @@ Viewed directly on a phone-sized screen on 12 Nov 2026. GetYourGuide and Klook r
 
 Their checkout pages and AsiaByLocals' supplier sign-up form were not walked through.
 
-## 11. Things that feel fun and hurt
+## 11. What is already in the site
+
+Built into the preview on 12 Nov 2026:
+
+- The live line under the home hero: tomorrow's sunrise at the Taj in India time, and whether it is open. Computed in the browser; accurate to about two minutes.
+- The day-arc on every sample tour card and above each itinerary. It redraws on hover.
+- The Promise seal beside the booking button, in the teal reserved for verified things.
+
+Not yet built: the guide's spoken hello, sunrise on the calendar, the booking stamp, the countdown and trip page, the day card, city stamps and the jaali ornament set. The stamp and everything after it depend on booking, which is not open yet.
+
+## 12. Things that feel fun and hurt
 
 - Fake urgency or scarcity: treated as misleading by the UK regulator, with fining powers.
 - Streaks for travellers: a visitor books one to three tours; there is nothing honest to count. A passport of completed days instead.
