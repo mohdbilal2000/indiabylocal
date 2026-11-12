@@ -48,6 +48,8 @@
     -webkit-text-size-adjust: 100%;
   }
   body {
+    /* Safety net: nothing may make the page wider than the screen. */
+    overflow-x: clip;
     background: var(--color-surface);
     color: var(--color-ink);
     font-family: var(--font-sans);
@@ -202,6 +204,38 @@
     animation: today-pulse 2.4s ease-out 3;
   }
 }
+/* Gentle effects. Content is fully visible without them; they only add a soft arrival where the browser supports it. */
+@layer components {
+  .lift {
+    transition: transform 160ms var(--ease-enter), box-shadow 160ms var(--ease-enter), border-color 160ms var(--ease-enter);
+  }
+  .lift:hover,
+  .lift:focus-visible {
+    transform: translateY(-2px);
+    border-color: var(--color-brand);
+    box-shadow: 0 8px 24px rgb(43 47 119 / 0.1);
+  }
+  .menu-panel:not([hidden]) {
+    animation: menu-in 180ms var(--ease-enter) both;
+  }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 45%;
+    }
+  }
+}
+@keyframes reveal-in {
+  from { opacity: 0.35; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes menu-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: none; }
+}
 @keyframes arc-draw {
   from { stroke-dashoffset: 1; }
   to { stroke-dashoffset: 0; }
@@ -225,8 +259,12 @@
   .today-dot {
     animation: none;
   }
-  .zoom img {
+  .zoom img,
+  .lift {
     transition: none;
+  }
+  .menu-panel:not([hidden]) {
+    animation: none;
   }
   .btn {
     transition: none;

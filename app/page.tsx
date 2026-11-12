@@ -8,6 +8,7 @@ import { TourCard } from "@/components/TourCard";
 import { tours } from "@/lib/data";
 import { destinationBySlug, destinations, inRegion, popular, regions, states } from "@/lib/destinations";
 import { homeFaq } from "@/lib/faq";
+import { steps } from "@/lib/how";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 
 export const metadata = { alternates: { canonical: "/" } };
@@ -103,29 +104,57 @@ export default function Home() {
         </div>
       </section>
 
+      <section aria-labelledby="how-h" className="shell pt-20">
+        <h2 id="how-h" className="text-h2">
+          How it works
+        </h2>
+        <ol className="mt-8 grid gap-5 md:grid-cols-3">
+          {steps.map((s, i) => (
+            <li key={s.t} className="reveal rounded-2xl border border-hair bg-card p-6">
+              <span aria-hidden="true" className="nums flex size-10 items-center justify-center rounded-full bg-brand font-semibold text-white">
+                {i + 1}
+              </span>
+              <h3 className="mt-4 font-sans text-h4 font-semibold tracking-normal">{s.t}</h3>
+              <p className="mt-2 text-muted">{s.d}</p>
+            </li>
+          ))}
+        </ol>
+        <p className="mt-6">
+          <Link href="/how-it-works" className="link font-semibold">
+            Read our Promise in full
+          </Link>
+        </p>
+      </section>
+
       <section aria-labelledby="reg-h" className="shell pt-20">
         <h2 id="reg-h" className="text-h2">
-          Every corner of the country
+          Browse by region
         </h2>
-        <div className="mt-8 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+        <p className="mt-2 text-muted">Tap a region to see its places.</p>
+        <div className="mt-6 grid gap-3 md:grid-cols-2">
           {regions.map((r) => (
-            <div key={r.slug} className="border-t-2 border-brand pt-4">
-              <h3 className="text-h4">
-                <Link href={`/destinations#${r.slug}`} className="hover:underline">
-                  {r.name}
-                </Link>
-              </h3>
-              <p className="mt-1 text-caption text-muted">{r.line}</p>
-              <ul className="mt-3 flex flex-wrap gap-x-3 text-small">
+            <details key={r.slug} className="group rounded-2xl border border-hair bg-card">
+              <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 px-5 py-3 [&::-webkit-details-marker]:hidden">
+                <span>
+                  <span className="block font-display text-h4 font-semibold">{r.name}</span>
+                  <span className="block text-small text-muted">
+                    {inRegion(r.slug).length} places · {r.line}
+                  </span>
+                </span>
+                <span aria-hidden="true" className="text-h4 text-brand transition-transform group-open:rotate-45">
+                  +
+                </span>
+              </summary>
+              <ul className="grid grid-cols-2 gap-x-4 border-t border-hair px-5 py-3 text-small sm:grid-cols-3">
                 {inRegion(r.slug).map((p) => (
                   <li key={p.slug}>
-                    <Link href={`/india/${p.slug}`} className="inline-flex min-h-8 items-center hover:text-brand hover:underline">
+                    <Link href={`/india/${p.slug}`} className="flex min-h-11 items-center hover:text-brand hover:underline">
                       {p.name}
                     </Link>
                   </li>
                 ))}
               </ul>
-            </div>
+            </details>
           ))}
         </div>
       </section>
@@ -133,15 +162,17 @@ export default function Home() {
       <section aria-labelledby="tours-h" className="mt-20 bg-surface-alt py-16">
         <div className="shell">
           <h2 id="tours-h" className="text-h2">
-            What a listing looks like
+            See the day before you book it
           </h2>
           <p className="prose-col mt-2 text-muted">
-            Six sample tours that show the format: one listing per real tour, the options inside it, and the full
-            price worked out before you pay.
+            Every tour shows the day stop by stop and the full price for your group. These six are samples while we
+            sign up our first operators.
           </p>
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {tours.map((t) => (
-              <TourCard key={t.slug} tour={t} />
+            {tours.map((t, i) => (
+              <div key={t.slug} className={i > 2 ? "hidden sm:block" : undefined}>
+                <TourCard tour={t} />
+              </div>
             ))}
           </div>
         </div>

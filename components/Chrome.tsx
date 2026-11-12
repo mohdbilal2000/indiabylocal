@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { MobileMenu } from "@/components/MobileMenu";
 import { regions } from "@/lib/destinations";
 import { SITE_LIVE, SITE_NAME } from "@/lib/site";
 
@@ -13,39 +14,51 @@ export function PreviewBanner() {
 
 export function Logo({ light = false }: { light?: boolean }) {
   return (
-    <Link href="/" className={`font-display text-h4 font-semibold tracking-tight no-underline ${light ? "text-white" : "text-brand"}`}>
+    <Link href="/" className={`min-w-0 truncate font-display text-h4 font-semibold tracking-tight no-underline ${light ? "text-white" : "text-brand"}`}>
       India<span className="text-action">By</span>Local
     </Link>
   );
 }
 
+const MENU = [
+  { href: "/destinations", label: "Destinations", note: "All 67 places, by region" },
+  { href: "/guides", label: "City guides", note: "When to go, how long, what to see" },
+  { href: "/how-it-works", label: "How it works", note: "Booking, price and our Promise" },
+  { href: "/for-operators", label: "For tour operators", note: "List your tours" },
+  { href: "/operators/login", label: "Operator log in" },
+];
+
 export function Header() {
-  const item = "min-h-12 items-center rounded-lg px-3 font-medium hover:bg-surface-alt";
+  const item = "inline-flex min-h-12 items-center rounded-lg px-3 font-medium hover:bg-surface-alt";
   return (
     <header className="sticky top-0 z-30 border-b border-hair bg-surface/95 backdrop-blur">
-      <div className="shell flex min-h-16 items-center gap-2 py-1">
+      <div className="shell relative flex min-h-16 items-center justify-between gap-3 py-1">
         <Logo />
-        <nav aria-label="Main" className="ml-2 flex flex-1 items-center text-small sm:ml-6">
-          <Link href="/destinations" className={`${item} inline-flex`}>
+        <nav aria-label="Main" className="hidden flex-1 items-center pl-6 text-small lg:flex">
+          <Link href="/destinations" className={item}>
             Destinations
           </Link>
-          <Link href="/for-operators" className={`${item} hidden sm:inline-flex`}>
-            For operators
+          <Link href="/guides" className={item}>
+            City guides
           </Link>
-          <Link href="/operators/login" className={`${item} ml-auto hidden md:inline-flex`}>
-            Operator log in
+          <Link href="/how-it-works" className={item}>
+            How it works
           </Link>
-          <Link href="/operators/signup" className="btn ml-auto min-h-11 whitespace-nowrap px-4 text-small md:ml-2">
-            List your tours
+          <Link href="/for-operators" className={`${item} ml-auto`}>
+            For tour operators
+          </Link>
+          <Link href="/destinations" className="btn ml-2 min-h-11 whitespace-nowrap px-4 text-small">
+            Find a tour
           </Link>
         </nav>
+        <MobileMenu links={MENU} />
       </div>
     </header>
   );
 }
 
 export function Footer() {
-  const a = "inline-flex min-h-8 items-center opacity-85 hover:underline hover:opacity-100";
+  const a = "inline-flex min-h-11 items-center opacity-85 hover:underline hover:opacity-100";
   return (
     <footer className="mt-24 bg-brand text-white">
       <div className="shell grid gap-10 py-14 text-small sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
@@ -78,6 +91,16 @@ export function Footer() {
             <li>
               <Link className={a} href="/destinations">
                 All destinations
+              </Link>
+            </li>
+            <li>
+              <Link className={a} href="/guides">
+                City guides
+              </Link>
+            </li>
+            <li>
+              <Link className={a} href="/how-it-works">
+                How it works and our Promise
               </Link>
             </li>
             <li>

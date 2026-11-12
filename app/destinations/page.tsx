@@ -19,7 +19,7 @@ export default function Destinations() {
         {destinations.length} places across {states.length} states and territories.
       </p>
 
-      <nav aria-label="Regions" className="sticky top-16 z-10 -mx-4 mt-6 overflow-x-auto border-b border-hair bg-surface/95 px-4 backdrop-blur">
+      <nav aria-label="Regions" className="sticky top-16 z-10 -mx-[16px] mt-6 overflow-x-auto border-b border-hair bg-surface/95 px-[16px] backdrop-blur md:mx-0 md:px-0">
         <ul className="flex gap-1 text-small">
           {regions.map((r) => (
             <li key={r.slug}>
@@ -49,10 +49,10 @@ export default function Destinations() {
         <h2 id="st-h" className="text-h2">
           By state
         </h2>
-        <ul className="mt-6 columns-2 gap-8 text-small md:columns-3 lg:columns-4">
+        <ul className="mt-6 grid grid-cols-[repeat(auto-fill,minmax(min(100%,11rem),1fr))] gap-x-8 text-small">
           {states.map((s) => (
-            <li key={s.slug} className="break-inside-avoid">
-              <Link href={`/states/${s.slug}`} className="inline-flex min-h-9 items-center hover:text-brand hover:underline">
+            <li key={s.slug} className="min-w-0">
+              <Link href={`/states/${s.slug}`} className="flex min-h-11 flex-wrap items-center hover:text-brand hover:underline">
                 {s.name} <span className="nums ml-1.5 text-muted">({s.destinations.length})</span>
               </Link>
             </li>

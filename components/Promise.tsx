@@ -10,7 +10,7 @@ export function PromiseSeal() {
       </svg>
       <p className="text-small">
         <strong>The Promise.</strong> If your guide doesn&apos;t show, or takes you to a shop you didn&apos;t ask for, you get the full tour price back.{" "}
-        <Link href="/#promise-h" className="font-semibold text-verified underline">
+        <Link href="/how-it-works#promise" className="font-semibold text-verified underline">
           What it covers
         </Link>
       </p>

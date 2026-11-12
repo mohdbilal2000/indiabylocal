@@ -3,12 +3,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Crumbs } from "@/components/Chrome";
 import { DestinationCard } from "@/components/DestinationCard";
-import { JsonLd, breadcrumbLd } from "@/components/JsonLd";
+import { JsonLd, breadcrumbLd, faqLd } from "@/components/JsonLd";
 import { Photo } from "@/components/Photo";
+import { PlanGuide, planRows } from "@/components/PlanGuide";
 import { ListingCard, TourCard } from "@/components/TourCard";
 import { toursIn } from "@/lib/data";
 import { publishedIn } from "@/lib/db";
 import { destinationBySlug, destinations, slugify } from "@/lib/destinations";
+import { guideFor } from "@/lib/guides";
 import { SITE_LIVE } from "@/lib/site";
 
 export const dynamicParams = false;
@@ -45,10 +47,12 @@ export default async function PlacePage({ params }: Props) {
     { name: p.name },
   ];
   const empty = listings.length === 0 && samples.length === 0;
+  const guide = guideFor(p.slug);
 
   return (
     <>
       <JsonLd data={breadcrumbLd(crumbs)} />
+      {guide && <JsonLd data={faqLd(planRows(p, guide))} />}
       <section className="relative isolate">
         <div className="absolute inset-0 -z-10">
           <Photo name={p.slug} sizes="100vw" priority />
@@ -106,6 +110,8 @@ export default async function PlacePage({ params }: Props) {
             </div>
           )}
         </section>
+
+        {guide && <PlanGuide place={p} guide={guide} />}
 
         {p.slug === "agra" && (
           <p className="mt-8">

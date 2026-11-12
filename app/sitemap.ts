@@ -7,6 +7,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const paths = [
     "/",
     "/destinations",
+    "/guides",
+    "/how-it-works",
     ...states.map((s) => `/states/${s.slug}`),
     ...destinations.map((d) => `/india/${d.slug}`),
     "/india/agra/taj-mahal/tickets-timings",
