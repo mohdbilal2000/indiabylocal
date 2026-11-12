@@ -3,12 +3,15 @@ import { DestinationCard } from "@/components/DestinationCard";
 import { JsonLd } from "@/components/JsonLd";
 import { Photo } from "@/components/Photo";
 import { Search } from "@/components/Search";
+import { PlanCard } from "@/components/PlanCards";
 import { Today } from "@/components/Today";
 import { TourCard } from "@/components/TourCard";
 import { tours } from "@/lib/data";
 import { destinationBySlug, destinations, inRegion, popular, regions, states } from "@/lib/destinations";
 import { homeFaq } from "@/lib/faq";
 import { steps } from "@/lib/how";
+import { plans } from "@/lib/plans";
+import { worries } from "@/lib/worries";
 import { faqNode, graph, organizationNode, websiteNode } from "@/lib/schema";
 import { SITE_URL } from "@/lib/site";
 
@@ -54,7 +57,7 @@ export default function Home() {
               <li key={p.slug}>
                 <Link
                   href={`/india/${p.slug}`}
-                  className="inline-flex min-h-10 items-center rounded-full border border-white/50 bg-black/25 px-4 backdrop-blur hover:bg-white hover:text-ink"
+                  className="inline-flex min-h-10 items-center rounded-full border border-white/50 bg-black/25 px-4 backdrop-blur hover:bg-white hover:text-night"
                 >
                   {p.name}
                 </Link>
@@ -73,7 +76,7 @@ export default function Home() {
           <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {promises.map((p) => (
               <li key={p.title} className="flex gap-3">
-                <span aria-hidden="true" className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-verified text-caption font-bold text-white">
+                <span aria-hidden="true" className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-verified text-caption font-bold text-on-solid">
                   ✓
                 </span>
                 <span>
@@ -112,7 +115,7 @@ export default function Home() {
         <ol className="mt-8 grid gap-5 md:grid-cols-3">
           {steps.map((s, i) => (
             <li key={s.t} className="reveal rounded-2xl border border-hair bg-card p-6">
-              <span aria-hidden="true" className="nums flex size-10 items-center justify-center rounded-full bg-brand font-semibold text-white">
+              <span aria-hidden="true" className="nums flex size-10 items-center justify-center rounded-full bg-brand font-semibold text-on-solid">
                 {i + 1}
               </span>
               <h3 className="mt-4 font-sans text-h4 font-semibold tracking-normal">{s.t}</h3>
@@ -125,6 +128,42 @@ export default function Home() {
             Read our Promise in full
           </Link>
         </p>
+      </section>
+
+      <section aria-labelledby="plans-h" className="shell pt-20">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <h2 id="plans-h" className="text-h2">
+              Delhi, Agra and Jaipur, paced properly
+            </h2>
+            <p className="prose-col mt-2 text-muted">
+              The classic route is often done too fast. Three plans, day by day, with the drive times written down.
+            </p>
+          </div>
+          <Link href="/plans" className="btn-ghost">
+            Compare the plans
+          </Link>
+        </div>
+        <div className="mt-8 grid gap-6 md:grid-cols-3">
+          {plans.map((p) => (
+            <PlanCard key={p.slug} plan={p} />
+          ))}
+        </div>
+      </section>
+
+      <section aria-labelledby="worry-h" className="shell pt-20">
+        <h2 id="worry-h" className="text-h2">
+          What travellers worry about, and straight answers
+        </h2>
+        <ul className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
+          {worries.map((w) => (
+            <li key={w.id}>
+              <Link href={`/before-you-go#${w.id}`} className="lift flex min-h-16 items-center rounded-2xl border border-hair bg-card p-4 text-small font-semibold no-underline">
+                {w.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <section aria-labelledby="reg-h" className="shell pt-20">
@@ -200,7 +239,7 @@ export default function Home() {
               <Link href="/operators/signup" className="btn">
                 Create an operator account
               </Link>
-              <Link href="/for-operators" className="inline-flex min-h-12 items-center rounded-lg border border-white/60 px-5 font-semibold hover:bg-white hover:text-ink">
+              <Link href="/for-operators" className="inline-flex min-h-12 items-center rounded-lg border border-white/60 px-5 font-semibold hover:bg-white hover:text-night">
                 How it works
               </Link>
             </div>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { CurrencySwitcher } from "@/components/Currency";
 import { MobileMenu } from "@/components/MobileMenu";
+import { ThemeChoice, ThemeToggle } from "@/components/ThemeSwitcher";
 import { regions } from "@/lib/destinations";
 import { SITE_LIVE, SITE_NAME } from "@/lib/site";
 
@@ -23,6 +24,8 @@ export function Logo({ light = false }: { light?: boolean }) {
 
 const MENU = [
   { href: "/destinations", label: "Destinations", note: "All 67 places, by region" },
+  { href: "/plans", label: "Trip plans", note: "4, 5 or 7 days, paced properly" },
+  { href: "/before-you-go", label: "Before you go", note: "Ten worries, answered" },
   { href: "/guides", label: "City guides", note: "When to go, how long, what to see" },
   { href: "/how-it-works", label: "How it works", note: "Booking, price and our Promise" },
   { href: "/saved", label: "Saved tours", note: "Tours you marked with a heart" },
@@ -40,8 +43,11 @@ export function Header() {
           <Link href="/destinations" className={item}>
             Destinations
           </Link>
-          <Link href="/guides" className={item}>
-            City guides
+          <Link href="/plans" className={item}>
+            Trip plans
+          </Link>
+          <Link href="/before-you-go" className={item}>
+            Before you go
           </Link>
           <Link href="/how-it-works" className={item}>
             How it works
@@ -53,6 +59,7 @@ export function Header() {
             Saved
           </Link>
           <CurrencySwitcher className="ml-1" />
+          <ThemeToggle className="ml-1" />
           <Link href="/destinations" className="btn ml-2 min-h-11 whitespace-nowrap px-4 text-small">
             Find a tour
           </Link>
@@ -62,6 +69,7 @@ export function Header() {
             <span className="font-semibold">Show prices in</span>
             <CurrencySwitcher />
           </div>
+          <ThemeChoice />
         </MobileMenu>
       </div>
     </header>
@@ -71,7 +79,7 @@ export function Header() {
 export function Footer() {
   const a = "inline-flex min-h-11 items-center opacity-85 hover:underline hover:opacity-100";
   return (
-    <footer className="mt-24 bg-night text-white">
+    <footer className="mt-24 border-t border-white/10 bg-night text-white">
       <div className="shell grid gap-10 py-14 text-small sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div>
           <Logo light />
@@ -102,6 +110,16 @@ export function Footer() {
             <li>
               <Link className={a} href="/destinations">
                 All destinations
+              </Link>
+            </li>
+            <li>
+              <Link className={a} href="/plans">
+                Trip plans: 4, 5 or 7 days
+              </Link>
+            </li>
+            <li>
+              <Link className={a} href="/before-you-go">
+                Before you go: ten worries
               </Link>
             </li>
             <li>

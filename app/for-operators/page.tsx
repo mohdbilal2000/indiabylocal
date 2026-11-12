@@ -44,7 +44,7 @@ export default function ForOperators() {
             <Link href="/operators/signup" className="btn">
               Create an operator account
             </Link>
-            <Link href="/operators/login" className="inline-flex min-h-12 items-center rounded-lg border border-white/60 px-5 font-semibold hover:bg-white hover:text-ink">
+            <Link href="/operators/login" className="inline-flex min-h-12 items-center rounded-lg border border-white/60 px-5 font-semibold hover:bg-white hover:text-night">
               Log in
             </Link>
           </div>

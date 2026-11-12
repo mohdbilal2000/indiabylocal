@@ -9,6 +9,8 @@ import "./globals.css";
 const fraunces = Fraunces({ subsets: ["latin"], variable: "--font-fraunces", display: "swap" });
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
+const THEME_SCRIPT = `try{var t=localStorage.getItem("ibl-theme");if(t==="dark"||t==="light")document.documentElement.dataset.theme=t}catch(e){}`;
+
 /** Exchange rates are refreshed twice a day; pages stay cached in between. */
 export const revalidate = 43200;
 
@@ -36,7 +38,11 @@ export const viewport: Viewport = {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const rates = await getRates();
   return (
-    <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
+    <html lang="en" className={`${fraunces.variable} ${inter.variable}`} suppressHydrationWarning>
+      <head>
+        {/* Applies a saved light or dark choice before the first paint, so there is no flash. */}
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+      </head>
       <body>
         <a
           href="#main"

@@ -10,7 +10,7 @@ export const metadata: Metadata = { title: "Your tours", robots: { index: false 
 const STATUS: Record<Listing["status"], { label: string; cls: string }> = {
   draft: { label: "Draft", cls: "bg-surface-alt text-ink" },
   submitted: { label: "In review", cls: "bg-action text-on-action" },
-  published: { label: "Live", cls: "bg-success text-white" },
+  published: { label: "Live", cls: "bg-success text-on-solid" },
   withdrawn: { label: "Withdrawn", cls: "bg-surface-alt text-muted" },
 };
 

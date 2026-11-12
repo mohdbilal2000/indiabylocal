@@ -39,8 +39,8 @@ const when = (d: string) =>
 
 const BADGE: Record<Operator["status"], string> = {
   pending: "bg-action text-on-action",
-  verified: "bg-success text-white",
-  suspended: "bg-error text-white",
+  verified: "bg-success text-on-solid",
+  suspended: "bg-error text-on-solid",
 };
 
 function StatusButton({ id, status, label, quiet = false }: { id: string; status: string; label: string; quiet?: boolean }) {

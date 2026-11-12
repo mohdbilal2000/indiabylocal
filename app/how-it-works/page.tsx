@@ -59,7 +59,7 @@ export default function HowItWorks() {
       <ol className="mt-10 grid gap-5 md:grid-cols-3">
         {steps.map((s, i) => (
           <li key={s.t} className="reveal rounded-2xl border border-hair bg-card p-6">
-            <span aria-hidden="true" className="nums flex size-10 items-center justify-center rounded-full bg-brand font-semibold text-white">
+            <span aria-hidden="true" className="nums flex size-10 items-center justify-center rounded-full bg-brand font-semibold text-on-solid">
               {i + 1}
             </span>
             <h2 className="mt-4 font-sans text-h4 font-semibold tracking-normal">{s.t}</h2>

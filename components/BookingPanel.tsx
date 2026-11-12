@@ -72,7 +72,7 @@ function Calendar({ item, value, onPick, today }: { item: Bookable; value: strin
               onClick={() => onPick(date)}
               className={`mx-auto flex aspect-square w-full max-w-11 items-center justify-center rounded-full text-small ${
                 picked
-                  ? "bg-night font-semibold text-white"
+                  ? "bg-strong font-semibold text-on-strong"
                   : problem
                     ? `text-line ${closed ? "line-through" : ""}`
                     : "font-medium hover:bg-surface-alt"
@@ -279,8 +279,8 @@ export function BookingPanel({ item, whatsapp }: { item: Bookable; whatsapp: str
           <legend className="text-small font-semibold">What is included</legend>
           <div className="mt-2 grid gap-2">
             {item.options.map((o) => (
-              <label key={o.id} className="flex min-h-12 cursor-pointer items-start gap-3 rounded-xl border border-line p-3 has-[:checked]:border-night has-[:checked]:bg-surface-alt">
-                <input type="radio" name={`${uid}-opt`} value={o.id} checked={o.id === optionId} onChange={() => setOptionId(o.id)} className="mt-1 size-5 accent-[var(--color-night)]" />
+              <label key={o.id} className="flex min-h-12 cursor-pointer items-start gap-3 rounded-xl border border-line p-3 has-[:checked]:border-strong has-[:checked]:bg-surface-alt">
+                <input type="radio" name={`${uid}-opt`} value={o.id} checked={o.id === optionId} onChange={() => setOptionId(o.id)} className="mt-1 size-5 accent-[var(--color-strong)]" />
                 <span>
                   <span className="block text-small font-semibold">{o.name}</span>
                   <span className="block text-caption text-muted">{o.detail}</span>

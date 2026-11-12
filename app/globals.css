@@ -26,6 +26,11 @@
   --color-verified: #047857;
   --color-verified-fill: #059669;
   --color-verified-soft: #ecfdf5;
+  /* Fill for the selected day and checked options. Near-black on light, sand on dark. */
+  --color-strong: #020617;
+  --color-on-strong: #ffffff;
+  /* Text on a solid brand, verified, success or error fill. */
+  --color-on-solid: #ffffff;
 
   --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
   --font-sans: var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -48,6 +53,58 @@
   --text-caption--line-height: 1.4;
 
   --ease-enter: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Dark palette. Followed automatically from the device setting; a visitor's own choice (data-theme) wins. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --color-brand: #f0916a;
+    --color-terracotta: #e0703f;
+    --color-action: #f0903a;
+    --color-on-action: #1b1006;
+    --color-ink: #f1f5f9;
+    --color-muted: #a9b4c4;
+    --color-surface: #0f1217;
+    --color-surface-alt: #1a1f27;
+    --color-card: #171b22;
+    --color-line: #8793a6;
+    --color-hair: #2b323d;
+    --color-success: #34d399;
+    --color-warning: #f6b24a;
+    --color-error: #f87171;
+    --color-celebrate: #f472a6;
+    --color-verified: #34d399;
+    --color-verified-fill: #10b981;
+    --color-verified-soft: #0f2a23;
+    --color-strong: #f1f5f9;
+    --color-on-strong: #0f1217;
+    --color-on-solid: #04130d;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-brand: #f0916a;
+  --color-terracotta: #e0703f;
+  --color-action: #f0903a;
+  --color-on-action: #1b1006;
+  --color-ink: #f1f5f9;
+  --color-muted: #a9b4c4;
+  --color-surface: #0f1217;
+  --color-surface-alt: #1a1f27;
+  --color-card: #171b22;
+  --color-line: #8793a6;
+  --color-hair: #2b323d;
+  --color-success: #34d399;
+  --color-warning: #f6b24a;
+  --color-error: #f87171;
+  --color-celebrate: #f472a6;
+  --color-verified: #34d399;
+  --color-verified-fill: #10b981;
+  --color-verified-soft: #0f2a23;
+  --color-strong: #f1f5f9;
+  --color-on-strong: #0f1217;
+  --color-on-solid: #04130d;
 }
 
 @layer base {
