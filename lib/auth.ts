@@ -28,6 +28,8 @@ const digest = (token: string) => createHash("sha256").update(token).digest("hex
 /** The cookie holds a random token; the database holds only its hash. */
 export async function startSession(operatorId: string) {
   const token = randomBytes(32).toString("base64url");
+  // Expired sessions are of no use; clear them whenever a new one starts.
+  await db()`delete from sessions where expires_at < now()`;
   const expires = new Date(Date.now() + DAYS * 86_400_000);
   await db()`insert into sessions (token_hash, operator_id, expires_at)
              values (${digest(token)}, ${operatorId}, ${expires.toISOString()})`;

@@ -6,6 +6,7 @@ import { tourBySlug } from "@/lib/data";
 import { type PublicListing, db } from "@/lib/db";
 import { destinationBySlug } from "@/lib/destinations";
 import { SITE_LIVE } from "@/lib/site";
+import { clientIp, isThrottled, keyOf, recordAttempt } from "@/lib/throttle";
 
 export type RequestInput = {
   ref: string;
@@ -114,6 +115,9 @@ export async function requestBooking(input: RequestInput): Promise<RequestResult
   if (problem) return fail(problem);
   const { option, total } = quote(item, text(input.optionId, 40), people);
 
+  const ipKey = keyOf(`ip:${await clientIp()}`);
+  if (await isThrottled("booking", ipKey, 10, 60)) return fail("We are not able to take another request from this connection right now. Please try again later.");
+
   const insert = async () => {
     // Opened here so that a missing or unreachable database becomes a plain message, not a crashed page.
     const sql = db();
@@ -123,7 +127,7 @@ export async function requestBooking(input: RequestInput): Promise<RequestResult
     // five a day per mailbox, and 200 an hour in total.
     const rows = await sql`
       insert into booking_requests (code, tour_ref, title, destination, option_name, tour_date, people, total, currency, name, email, phone, note, mailbox)
-      select ${code}, ${item.ref}, ${item.title}, ${item.city}, ${option.name}, ${date}, ${people}, ${total}, ${item.currency},
+      select ${code}, ${item.ref}, ${item.title}, ${item.city}, ${option.name}, ${date}::date, ${people}::int, ${total}::int, ${item.currency},
              ${name}, ${email}, ${phone || null}, ${note || null}, ${mailbox}
       where (select count(*) from booking_requests where mailbox = ${mailbox} and created_at > now() - interval '1 day') < 5
         and (select count(*) from booking_requests where created_at > now() - interval '1 hour') < 200
@@ -141,6 +145,7 @@ export async function requestBooking(input: RequestInput): Promise<RequestResult
       await db().query(CREATE_TABLE);
       code = await insert();
     }
+    if (code) await recordAttempt("booking", ipKey);
     if (!code) return fail("We are not able to take another request right now. Please try again later, or email us.");
     return { ok: true, code };
   } catch {

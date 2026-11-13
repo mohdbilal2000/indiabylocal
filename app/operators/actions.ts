@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { endSession, hashPassword, requireOperator, startSession, verifyPassword } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { clientIp, isThrottled, keyOf, recordAttempt } from "@/lib/throttle";
 import { destinationBySlug } from "@/lib/destinations";
 
 export type FormState = { error?: string; fields?: Record<string, string> };
@@ -33,6 +34,9 @@ export async function signUp(_prev: FormState, form: FormData): Promise<FormStat
   if (f.licence_no.length > 60) return fail("That licence number is too long.");
   if (f.password.length < 10 || f.password.length > 200) return fail("Choose a password of at least 10 characters.");
 
+  const ipKey = keyOf(`ip:${await clientIp()}`);
+  if (await isThrottled("signup", ipKey, 5, 60)) return fail("Several accounts were created from this connection in the last hour. Please try again later.");
+
   const sql = db();
   const existing = await sql`select 1 from operators where email = ${f.email}`;
   if (existing.length) return fail("An account with that email already exists. Log in instead.");
@@ -42,6 +46,7 @@ export async function signUp(_prev: FormState, form: FormData): Promise<FormStat
     values (${f.email}, ${await hashPassword(f.password)}, ${f.business_name}, ${f.contact_name},
             ${f.phone}, ${f.base_city}, ${f.licence_no || null})
     returning id`;
+  await recordAttempt("signup", ipKey);
   await startSession(rows[0].id as string);
   redirect("/operators/dashboard");
 }
@@ -49,11 +54,20 @@ export async function signUp(_prev: FormState, form: FormData): Promise<FormStat
 export async function logIn(_prev: FormState, form: FormData): Promise<FormState> {
   const f = read(form, ["email", "password"]);
   f.email = f.email.toLowerCase();
+  // Failed attempts only are counted: six per email and twenty per connection in fifteen minutes.
+  const ipKey = keyOf(`ip:${await clientIp()}`);
+  const mailKey = keyOf(`email:${f.email}`);
+  if ((await isThrottled("login", ipKey, 20, 15)) || (await isThrottled("login", mailKey, 6, 15))) {
+    return { error: "Too many sign-in attempts. Please wait 15 minutes and try again.", fields: { email: f.email } };
+  }
   const rows = await db()`select id, password_hash, status from operators where email = ${f.email}`;
   const row = rows[0];
   // Same message whether the email or the password is wrong.
   const ok = row ? await verifyPassword(f.password, row.password_hash as string) : false;
-  if (!row || !ok) return { error: "That email and password do not match an account.", fields: { email: f.email } };
+  if (!row || !ok) {
+    await Promise.all([recordAttempt("login", ipKey), recordAttempt("login", mailKey)]);
+    return { error: "That email and password do not match an account.", fields: { email: f.email } };
+  }
   if (row.status === "suspended") return { error: "This account is suspended. Contact us to resolve it.", fields: { email: f.email } };
   await startSession(row.id as string);
   redirect("/operators/dashboard");

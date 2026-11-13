@@ -54,6 +54,15 @@ create table if not exists admin_actions (
   created_at timestamptz not null default now()
 );
 
+-- Failed sign-ins, sign-ups and booking requests, for rate limits. Keys are hashes. Rows older than two days are deleted as new ones arrive.
+create table if not exists auth_attempts (
+  id         bigint generated always as identity primary key,
+  kind       text not null check (kind in ('login', 'signup', 'booking')),
+  key        text not null,
+  created_at timestamptz not null default now()
+);
+create index if not exists auth_attempts_lookup_idx on auth_attempts (kind, key, created_at desc);
+
 -- Traveller requests. No payment is taken; a person replies by email.
 -- Kept identical to CREATE_TABLE in app/booking/actions.ts, which creates it on first use.
 create table if not exists booking_requests (
